@@ -1,6 +1,7 @@
 *{
 	margin:0;
 	padding:0;
+	font-family: "微软雅黑"
 }
 .container{
 	width: 1920px;
@@ -9,6 +10,36 @@
 	background-image: url(../images/bg1.jpg);
 	position: relative;
 	margin: 0 auto;
+}
+.logo-number{
+	position: absolute;
+	height: 210px;
+	padding-left: 132px;
+	z-index: 99;
+}
+.shushuo-logo{
+	position: absolute;
+	right: 130px;
+	bottom: 38px;
+}
+.logo-number>img{
+	display: block;
+}
+.logo-number>img#logo{
+	margin-top: 133px;
+}
+.logo-number>img#bear1{
+	margin-top: 188px;
+}
+.logo-number>h1.title{
+	color:#f42442;
+	font-size: 33px;
+	margin-top: 34px;
+}
+.logo-number>p.count{
+	font-size: 83px;
+	color: white;
+	margin-top: 28px;
 }
 .map-container{
 	position: absolute;
