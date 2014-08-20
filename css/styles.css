@@ -1,0 +1,22 @@
+*{
+	margin:0;
+	padding:0;
+}
+.container{
+	width: 1920px;
+	height:1080px;
+	background: black;
+	background-image: url(../images/bg1.jpg);
+	position: relative;
+	margin: 0 auto;
+}
+.map-container{
+	position: absolute;
+}
+#worldmap{
+	z-index: 1;
+	width: 1398px;
+	height: 753px;
+	right: 120px;
+	top: 210px;
+}
