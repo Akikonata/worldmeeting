@@ -50,4 +50,9 @@
 	height: 753px;
 	right: 120px;
 	top: 210px;
+	display: none;
+}
+#chinamap{
+	z-index: 2;
+	
 }
