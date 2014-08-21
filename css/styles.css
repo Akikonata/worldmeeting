@@ -52,7 +52,7 @@
 	right: 120px;
 	top: 210px;
 }
-#worldmap path {
+#worldmap path,#chinamap path {
   stroke-dasharray: 1000;
   stroke-dashoffset: 1000;
   -webkit-animation: dash 4s forwards;

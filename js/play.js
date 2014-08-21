@@ -41,7 +41,7 @@
 				return false;
 			}
 			shooter.animate(shooterPositions[posIdx], 1000, function() {
-				floatlayer.animate({
+				floatlayer.delay(1000).animate({
 					width: 1658,
 					height: 722
 				}).delay(10000).animate({
