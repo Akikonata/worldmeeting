@@ -85,3 +85,11 @@
 #china #main{
 	opacity: 1
 }
+#shooter{
+	width: 614px;
+	height: 614px;
+	background: url(../images/shooter.png);
+	position: absolute;
+	z-index: 3;
+	display: none;
+}
