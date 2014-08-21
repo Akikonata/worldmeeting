@@ -5,6 +5,8 @@
 	var shooter = $("#shooter");
 	var floatlayer = $("#float-layer");
 	var citytext = $("#city-text");
+	var worlddots = $("#world-dots");
+	var chinadots = $("#china-dots");
 	var shooterPositions = [{
 		name: "北京",
 		right: 150,
@@ -40,6 +42,8 @@
 		//开场动画
 		worldmap.find("path").attr("class", "render");
 		chinamap.find("path").attr("class", "render");
+		//渲染数据点
+
 		//中国地图变大
 		chinamap.delay(5000).animate({
 			width: 1000,
