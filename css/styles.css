@@ -99,13 +99,32 @@
 	z-index: 100;
 	width: 0;
 	height: 0;
+	/*width: 1658px;
+	height: 722px;*/
 	top: 238px;
 	right: 126px;
-	background: url(../images/float_bg.png);
+	background: url(../images/float_bg.png) right top;
 	border:1px solid rgba(21,54,113,.72);
 	overflow: hidden;
 }
 #float-layer>h1{
 	color: #f92a69;
 	font-size: 48px;
+	margin-top: 74px;
+	margin-left: 88px;
+	padding: 0 48px 28px 30px;
+	border-bottom: 1px solid #0077bb;
+	display: inline-block;
+}
+#float-layer>#bear2{
+	position: absolute;
+	z-index: 100;
+	left: 104px;
+	bottom: 130px;
+}
+#float-layer>#bear2>h2{
+	text-align: center;
+	margin-top: 10px;
+	color: white;
+	font-size: 14px;
 }
