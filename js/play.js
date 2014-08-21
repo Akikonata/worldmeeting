@@ -40,8 +40,18 @@
 			if (posIdx >= shooterPositions.length) {
 				return false;
 			}
-			shooter.animate(shooterPositions[posIdx], 1000);
-			setTimeout(showCities, 20000);
+			shooter.animate(shooterPositions[posIdx], 1000, function() {
+				floatlayer.animate({
+					width: 1658,
+					height: 722
+				}).delay(10000).animate({
+					width: 200,
+					height: 200
+				}, function() {
+					floatlayer.hide();
+				});
+			});
+			setTimeout(showCities, 200000);
 		};
 		setTimeout(showCities, 5000);
 	});
