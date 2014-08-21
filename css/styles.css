@@ -105,3 +105,7 @@
 	border:1px solid rgba(21,54,113,.72);
 	overflow: hidden;
 }
+#float-layer>h1{
+	color: #f92a69;
+	font-size: 48px;
+}

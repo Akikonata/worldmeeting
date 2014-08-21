@@ -1,20 +1,26 @@
 (function() {
 	var shooterPositions = [{
+		name: "北京",
 		right: 150,
 		top: 300
 	}, {
+		name: "上海",
 		right: 190,
 		top: 300
 	}, {
+		name: "广州",
 		right: 290,
 		top: 500
 	}, {
+		name: "深圳",
 		right: 350,
 		top: 700
 	}, {
+		name: "台湾",
 		right: 150,
 		top: 500
 	}, {
+		name: "香港",
 		right: 250,
 		top: 700
 	}];
@@ -44,19 +50,16 @@
 				floatlayer.delay(1000).animate({
 					width: 1658,
 					height: 722
-				}).delay(10000).animate({
-					width: 200,
-					height: 200
-				}, function() {
-					floatlayer.hide();
-				});
+				}, 1000).delay(10000).animate({
+					width: 0,
+					height: 0
+				}, 1000);
 			});
-			setTimeout(showCities, 200000);
+			setTimeout(showCities, 20000);
 		};
 		setTimeout(showCities, 5000);
 	});
 	worldmap.delay(5000).fadeOut(2000);
-
 	// var loop = function() {};
 	// loop();
 })();
