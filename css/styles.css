@@ -93,3 +93,17 @@
 	z-index: 3;
 	display: none;
 }
+#float-layer{
+	position: absolute;
+	z-index: 100;
+	width: 1658px;
+	height: 722px;
+	top: 238px;
+	right: 126px;
+	background: url(../images/float_bg.png);
+	border:1px solid rgba(21,54,113,.72);
+}
+#float-layer.init{
+	width: 0;
+	height: 0;
+}
