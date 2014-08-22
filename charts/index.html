@@ -5,9 +5,9 @@
         <meta name="viewport" content="width=device-width,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no"/>
         <meta name="format-detection" content="telephone=no"/>
         <title>百度世界大会</title>
-        <script src="../../../kity/dist/kity.min.js"></script>
-        <script src="../../../build.js"></script>
-        <script src="../../lib/jquery-2.1.0.min.js"></script>
+        <script src="../js/libs/kity.min.js"></script>
+        <script src="../js/libs/kitychart.all.js"></script>
+        <script src="../js/libs/jquery-2.1.1.min.js"></script>
     </head>
     <style>
         body{
@@ -89,6 +89,24 @@
         Donut.init('donut');//初始化一次就行
         Donut.update(donutData);//数据有变化直接update
 
+        setTimeout(function(){
+            donutData = [{
+                label : "18-21",
+                value : 20,
+                color : "#ffcf00"
+            },{
+                label : "21-35",
+                value : 40,
+                color : "#1782fb"
+            },{
+                label : "35以上",
+                value : 10,
+                color : "#f92a69" 
+            }];
+
+            Donut.update(donutData);//数据有变化直接update            
+        }, 2000);
+
 
         var columnData = {
             x : ['18:06:20', '18:06:30', '18:06:40', '18:06:50'],
@@ -97,5 +115,6 @@
         Column.init('column');//初始化一次就行
         Column.update(columnData);//数据有变化直接update
         Column.setTotal(125663558894);//修改总数
+
     </script>
 </html>

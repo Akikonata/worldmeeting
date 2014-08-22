@@ -60,17 +60,23 @@
         return donutConfig;
     }
 
+    var lines = [];
+
     function connect( chart, conf ){
-        chart.addElement( '', new kc.Line({
+        var label = chart.addElement( '', new kc.Line({
             x1: conf.x,
             y1: conf.y,
             x2: conf.x,
             y2: conf.y,
             width: 1,
             color: conf.color
-        })).animate({
+        }));
+
+        label.animate({
         	x2: conf.x + conf.length * conf.dir,
         }, conf.duration);
+
+        lines.push( label );
     }
     
     window.Donut = {
@@ -90,9 +96,16 @@
     	},
 
     	setLabels : function(){
-    		var list = this.chart.getParamList();
-    		var self = this;
 
+            var self = this;
+            lines.forEach(function(l){
+                self.chart.canvas.removeShape(l.canvas);
+            });
+
+            $('.donut-label').remove();
+
+    		var list = this.chart.getParamList();
+    		
     		setTimeout(function(){
 	            list.forEach(function(param, i){
 	                if( i%2 != 0 ) return;
