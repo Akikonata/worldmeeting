@@ -11,7 +11,8 @@
                     innerRadius : 50,
                     outerRadius : 66,
                     incrementRadius : 16,
-                    originAngle : 90,
+                    originAngle : 45,
+                    animateAngle : 45,
                     gap : 10,
                     stroke : {
                         width : 0
@@ -111,7 +112,7 @@
 	                if( i%2 != 0 ) return;
 
 	                var r = param.innerRadius,
-	                	angle = param.startAngle + param.pieAngle - 90,
+	                	angle = param.startAngle + param.pieAngle - 90 + param.originAngle,
 	                	a = angle/180*Math.PI,
 	                	center = self.conf.plotOptions.pie.center;
 

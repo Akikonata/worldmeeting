@@ -2692,7 +2692,7 @@ var ElementList = kc.ElementList = kity.createClass( "ElementList", {
     updateClass: function ( elementClass ) {
         if ( !elementClass || this.elementClass == elementClass ) return;
         this.elementClass = elementClass;
-        this.shrink( this.elementList.lenght );
+        this.shrink( this.elementList.length );
     },
 
     adjust: function ( growth ) {
@@ -3075,6 +3075,7 @@ var Pie = kc.Pie = kity.createClass( "Pie", {
 			connectLineWidth: 1,
 			connectLineColor: '#62a9dd',
 
+			originAngle : 0,
 			innerRadius: 0,
 			outerRadius: 0,
 			startAngle: 0,
@@ -3095,10 +3096,10 @@ var Pie = kc.Pie = kity.createClass( "Pie", {
 
 	registerUpdateRules: function () {
 		return kity.Utils.extend( this.callBase(), {
-			updatePies: [ 'innerRadius', 'outerRadius', 'startAngle', 'pieAngle', 'strokeWidth', 'strokeColor' ],
+			updatePies: [ 'innerRadius', 'outerRadius', 'originAngle', 'startAngle', 'pieAngle', 'strokeWidth', 'strokeColor' ],
 			updatePiesColor: [ 'color' ],
-			updateLabel: [ 'labelText', 'labelColor', 'labelPosition', 'outerRadius', 'startAngle', 'pieAngle' ],
-			updateConnectLine: [ 'labelText', 'connectLineWidth', 'connectLineColor', 'labelPosition', 'innerRadius', 'outerRadius', 'startAngle', 'pieAngle' ]
+			updateLabel: [ 'labelText', 'labelColor', 'labelPosition', 'outerRadius', 'originAngle', 'startAngle', 'pieAngle' ],
+			updateConnectLine: [ 'labelText', 'connectLineWidth', 'connectLineColor', 'labelPosition', 'innerRadius', 'outerRadius', 'originAngle', 'startAngle', 'pieAngle' ]
 		} );
 	},
 
@@ -3111,11 +3112,11 @@ var Pie = kc.Pie = kity.createClass( "Pie", {
 		this.pie.fill( color );
 	},
 
-	updatePies: function ( innerRadius, outerRadius, startAngle, pieAngle, strokeWidth, strokeColor ) {
+	updatePies: function ( innerRadius, outerRadius, originAngle, startAngle, pieAngle, strokeWidth, strokeColor ) {
 
 		this.pie.innerRadius = innerRadius;
 		this.pie.outerRadius = outerRadius;
-		this.pie.startAngle = startAngle-90;
+		this.pie.startAngle = startAngle - 90 + originAngle;
 		this.pie.pieAngle = pieAngle;
 		this.pie.draw();
 		this.pie.bringTop();
@@ -3127,11 +3128,11 @@ var Pie = kc.Pie = kity.createClass( "Pie", {
 
 	},
 
-	updateLabel: function ( labelText, labelColor, labelPosition, outerRadius, startAngle, pieAngle ) {
+	updateLabel: function ( labelText, labelColor, labelPosition, outerRadius, originAngle, startAngle, pieAngle ) {
 		if( labelPosition == 'none' ) return;
 
 		var r = labelPosition == 'inside' ? outerRadius - 30 : outerRadius + 50;
-		var a = ( startAngle + pieAngle / 2 - 90 ) / 180 * Math.PI;
+		var a = ( startAngle + pieAngle / 2 - 90 + originAngle ) / 180 * Math.PI;
 
 		this.label.setVisible( true );
 		this.label.update( {
@@ -3145,11 +3146,11 @@ var Pie = kc.Pie = kity.createClass( "Pie", {
 
 	},
 
-	updateConnectLine: function ( labelText, connectLineWidth, connectLineColor, labelPosition, innerRadius, outerRadius, startAngle, pieAngle ) {
+	updateConnectLine: function ( labelText, connectLineWidth, connectLineColor, labelPosition, innerRadius, outerRadius, originAngle, startAngle, pieAngle ) {
 		if ( labelPosition != 'outside' || !labelText ) return;
 
 		var r = outerRadius + 30;
-		var a = ( startAngle + pieAngle / 2 - 90 ) / 180 * Math.PI;
+		var a = ( startAngle + pieAngle / 2 - 90 + originAngle ) / 180 * Math.PI;
 
 		this.connectLine.update( {
 			x1: ( innerRadius + 2 ) * Math.cos( a ),
@@ -5443,9 +5444,7 @@ var PiePlots = kc.PiePlots = kity.createClass( 'PiePlots', {
         this.chartType = 'pie'; // 这一行争取去掉
         this.config = config || {};
         
-        this.pies = this.addElement( 'pies', new kc.ElementList({
-            startAngle: 180
-        }) );
+        this.pies = this.addElement( 'pies', new kc.ElementList() );
     },
 
     update: function ( config ) {
@@ -5477,7 +5476,8 @@ var PiePlots = kc.PiePlots = kity.createClass( 'PiePlots', {
             increment = param.incrementRadius
             lpos = param.labelPosition,
             gap = param.gap || 0,
-            originAngle = param.originAngle || 0;
+            originAngle = param.originAngle || 0,
+            animateAngle = param.animateAngle || 0;
 
 
         for( var i = 0 ; i < series.length; i++ ){
@@ -5494,11 +5494,13 @@ var PiePlots = kc.PiePlots = kity.createClass( 'PiePlots', {
                     connectLineWidth: 1,
                     connectLineColor: self.getEntryColor( entry ),
 
+                    originAngle : originAngle,
+
                     innerRadius : tmpInner,
                     outerRadius : outer + (increment + gap) * i,
-                    startAngle : entry.offsetAngle + originAngle,
+                    startAngle : entry.offsetAngle + animateAngle,
                     pieAngle: entry.angle,
-
+                    
                     strokeWidth : opt.pie.stroke.width,
                     strokeColor : opt.pie.stroke.color,
 
@@ -5516,7 +5518,7 @@ var PiePlots = kc.PiePlots = kity.createClass( 'PiePlots', {
         this.pies.update({
             elementClass : kc.Pie,
             common : {
-                // startAngle : originAngle
+
             },
             list : list,
             fx : config.animation.enabled,
