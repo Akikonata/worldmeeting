@@ -86,16 +86,16 @@
             color : "#f92a69" 
         }];
 
-        Donut.init('donut');
-        Donut.update(donutData);
+        Donut.init('donut');//初始化一次就行
+        Donut.update(donutData);//数据有变化直接update
 
 
         var columnData = {
             x : ['18:06:20', '18:06:30', '18:06:40', '18:06:50'],
             y : [150000, 180000, 200000, 130000]
         };
-        Column.init('column');
-        Column.update(columnData);
-        Column.setTotal(125663558894);
+        Column.init('column');//初始化一次就行
+        Column.update(columnData);//数据有变化直接update
+        Column.setTotal(125663558894);//修改总数
     </script>
 </html>
