@@ -92,9 +92,9 @@
 	};
 	play();
 	var chinactx = chinadots.getContext("2d");
-	chinactx.fillStyle = 'white';
+	chinactx.fillStyle = '#f69701';
 	chinactx.shadowBlur = 10;
-	chinactx.shadowColor = "white";
+	chinactx.shadowColor = "#f69701";
 	//测试代码
 	var chinaMap = Utils.chinaMap;
 	for (var key in chinaMap) {
