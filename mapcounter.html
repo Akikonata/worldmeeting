@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Map</title>
+	<style>
+		*{
+			padding:0;
+			margin: 0;
+		}
+		canvas{
+			position: absolute;
+		}
+		#grid{
+			z-index: 10;
+		}
+		.result{
+			position: absolute;
+			top: 850px;
+
+		}
+	</style>
+</head>
+<body>
+	<canvas id='imageD' width="1000" height="840"></canvas>
+	<canvas id='grid' width="1000" height="840"></canvas>
+	<div class="result">
+		<textarea name="" id="result" cols="30" rows="10"></textarea>
+		<button id="generate">Generate</button>
+	</div>
+</body>
+<script>
+	(function(){
+		var img = new Image();
+		img.src = 'images/china.svg';
+		//记录map
+		var Map = new Array(100);
+		for(var i=0;i<Map.length;i++){
+			Map[i] = new Array(84);
+			for(var j=0;j<84;j++){
+				Map[i][j]=0;
+			} 
+		}
+		img.onload = function(){
+			var canvas = document.getElementById('imageD');
+			var grid = document.getElementById('grid');
+			var generate = document.getElementById('generate');
+			var resultText = document.getElementById('result');
+			generate.addEventListener("click",function(){
+				var result = [];
+				for(var i=0;i<100;i++){
+					for(j=0;j<84;j++){
+						if(Map[i][j]){
+							result.push([i,j]);
+						}
+					}
+				}
+				resultText.value = JSON.stringify(result);
+			},false);
+			grid.strokeStyle="gray";
+			grid.fillStyle="black";
+			var gtx = grid.getContext("2d");
+			for(var i=0;i<=100;i++){
+				gtx.moveTo(i*10,0);
+				gtx.lineTo(i*10,840);
+			}
+			for(var j=0;j<=84;j++){
+				gtx.moveTo(0,j*10);
+				gtx.lineTo(1000,j*10);
+			}
+			gtx.stroke();
+			grid.addEventListener("click",function(e){
+				var gX = parseInt(e.offsetX/10);
+				var gY = parseInt(e.offsetY/10);
+				var gridX = parseInt(e.offsetX/10)*10+1;
+				var gridY = parseInt(e.offsetY/10)*10+1;
+				gtx.fillRect(gridX,gridY,10,10);
+				Map[gX][gY]=1;
+			},false);
+			var ctx = canvas.getContext("2d");
+			ctx.drawImage(img,0,0);
+		};
+	})();
+</script>
+</html>
