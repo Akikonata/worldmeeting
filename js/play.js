@@ -9,28 +9,28 @@
 	var chinadots = $("#china-dots")[0];
 	var shooterPositions = [{
 		name: "北京",
-		right: 150,
+		left: 730,
 		top: 300
 	}, {
 		name: "上海",
-		right: 190,
-		top: 300
-	}, {
-		name: "广州",
-		right: 290,
+		left: 850,
 		top: 500
 	}, {
-		name: "深圳",
-		right: 350,
-		top: 700
+		name: "广东",
+		right: 720,
+		top: 680
+	}, {
+		name: "重庆",
+		right: 590,
+		top: 540
 	}, {
 		name: "台湾",
-		right: 150,
-		top: 500
+		right: 870,
+		top: 660
 	}, {
-		name: "香港",
-		right: 250,
-		top: 700
+		name: "福建",
+		right: 800,
+		top: 620
 	}];
 	var reset = function() {
 		worldmap.find("path").attr("class", "");
@@ -54,7 +54,7 @@
 		}, 2000, function() {
 			//靶位移动
 			shooter.css({
-				right: 268,
+				left: 1000,
 				top: 137
 			});
 			var posIdx = -1;
@@ -73,7 +73,11 @@
 					});
 					return false;
 				}
-				shooter.animate(shooterPositions[posIdx], 1000, function() {
+				var shooterPos = shooterPositions[posIdx];
+				shooter.animate({
+					left: shooterPos.left + 345,
+					top: shooterPos.top - 170
+				}, 1000, function() {
 					citytext.text(shooterPositions[posIdx].name);
 					floatlayer.delay(1000).animate({
 						width: 1658,
