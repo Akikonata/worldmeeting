@@ -5,8 +5,8 @@
 	var shooter = $("#shooter");
 	var floatlayer = $("#float-layer");
 	var citytext = $("#city-text");
-	var worlddots = $("#world-dots");
-	var chinadots = $("#china-dots");
+	var worlddots = $("#world-dots")[0];
+	var chinadots = $("#china-dots")[0];
 	var shooterPositions = [{
 		name: "北京",
 		right: 150,
@@ -36,6 +36,7 @@
 		worldmap.find("path").attr("class", "");
 		chinamap.find("path").attr("class", "");
 		worldmap.fadeIn(0);
+		shooter.hide();
 		play();
 	};
 	var play = function() {
@@ -64,7 +65,7 @@
 					//中国地图变小
 					chinamap.delay(5000).animate({
 						width: 200,
-						height: 240,
+						height: 168,
 						right: 362,
 						top: 420
 					}, 2000, function() {
@@ -90,4 +91,19 @@
 		worldmap.delay(5000).fadeOut(2000);
 	};
 	play();
+	var chinactx = chinadots.getContext("2d");
+	chinactx.fillStyle = "white";
+	//测试代码
+	var chinaMap = Utils.chinaMap;
+	var xizang = chinaMap["西藏"];
+	var range = xizang.length;
+	for (var i = 0; i < 10000; i++) {
+		var grid = parseInt(Math.random() * range);
+		console.log(xizang[grid][0], xizang[grid][1]);
+		var x = Math.random() * 10;
+		var y = Math.random() * 10;
+		chinactx.moveTo(xizang[grid][0] * 10 + x - 2, xizang[grid][1] * 10 + y);
+		chinactx.arc(xizang[grid][0] * 10 + x, xizang[grid][1] * 10 + y, 2, 0, Math.PI * 2, true);
+	}
+	chinactx.fill();
 })();

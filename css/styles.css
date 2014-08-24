@@ -51,6 +51,10 @@
 	height: 753px;
 	right: 120px;
 	top: 210px;
+	/*display: none;*/
+}
+#worldmap path{
+	opacity: 0.7
 }
 #worldmap path,#chinamap path{
 	stroke-dasharray: 1000;
@@ -59,7 +63,6 @@
 #worldmap path.render,#chinamap path.render {
   -webkit-animation: dash 4s forwards;
   -webkit-animation-timing-function: cubic-bezier(0.42,0,0.9,1);
-  opacity: 0.7;
 }
 
 @-webkit-keyframes dash {
@@ -71,9 +74,13 @@
 #chinamap{
 	z-index: 2;
 	width: 200px;
-	height: 240px;
+	height: 168px;
 	right: 362px;
 	top: 420px;
+/*	width: 1000px;
+	height: 840px;
+	right: 268px;
+	top: 137px;*/
 }
 #china-dots,#world-dots{
 	position: absolute;
