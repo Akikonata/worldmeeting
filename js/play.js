@@ -17,19 +17,19 @@
 		top: 500
 	}, {
 		name: "广东",
-		right: 720,
+		left: 720,
 		top: 680
 	}, {
 		name: "重庆",
-		right: 590,
+		left: 590,
 		top: 540
 	}, {
 		name: "台湾",
-		right: 870,
+		left: 870,
 		top: 660
 	}, {
 		name: "福建",
-		right: 800,
+		left: 800,
 		top: 620
 	}];
 	var reset = function() {
