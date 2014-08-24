@@ -93,18 +93,20 @@
 	play();
 	var chinactx = chinadots.getContext("2d");
 	chinactx.fillStyle = 'white';
-	chinactx.shadowBlur = 30;
+	chinactx.shadowBlur = 10;
 	chinactx.shadowColor = "white";
 	//测试代码
 	var chinaMap = Utils.chinaMap;
-	var xizang = chinaMap["西藏"];
-	var range = xizang.length;
-	for (var i = 0; i < 1000; i++) {
-		var grid = parseInt(Math.random() * range);
-		var x = Math.random() * 10;
-		var y = Math.random() * 10;
-		chinactx.moveTo(xizang[grid][0] * 10 + x - 1, xizang[grid][1] * 10 + y);
-		chinactx.arc(xizang[grid][0] * 10 + x, xizang[grid][1] * 10 + y, 1, 0, Math.PI * 2, true);
+	for (var key in chinaMap) {
+		var xizang = chinaMap[key];
+		var range = xizang.length;
+		for (var i = 0; i < 200; i++) {
+			var grid = parseInt(Math.random() * range);
+			var x = Math.random() * 10;
+			var y = Math.random() * 10;
+			chinactx.moveTo(xizang[grid][0] * 10 + x - 1, xizang[grid][1] * 10 + y);
+			chinactx.arc(xizang[grid][0] * 10 + x, xizang[grid][1] * 10 + y, 1, 0, Math.PI * 2, true);
+		}
 	}
 	chinactx.fill();
 })();
