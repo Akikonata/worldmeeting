@@ -92,18 +92,19 @@
 	};
 	play();
 	var chinactx = chinadots.getContext("2d");
-	chinactx.fillStyle = "white";
+	chinactx.fillStyle = 'white';
+	chinactx.shadowBlur = 30;
+	chinactx.shadowColor = "white";
 	//测试代码
 	var chinaMap = Utils.chinaMap;
 	var xizang = chinaMap["西藏"];
 	var range = xizang.length;
-	for (var i = 0; i < 10000; i++) {
+	for (var i = 0; i < 1000; i++) {
 		var grid = parseInt(Math.random() * range);
-		console.log(xizang[grid][0], xizang[grid][1]);
 		var x = Math.random() * 10;
 		var y = Math.random() * 10;
-		chinactx.moveTo(xizang[grid][0] * 10 + x - 2, xizang[grid][1] * 10 + y);
-		chinactx.arc(xizang[grid][0] * 10 + x, xizang[grid][1] * 10 + y, 2, 0, Math.PI * 2, true);
+		chinactx.moveTo(xizang[grid][0] * 10 + x - 1, xizang[grid][1] * 10 + y);
+		chinactx.arc(xizang[grid][0] * 10 + x, xizang[grid][1] * 10 + y, 1, 0, Math.PI * 2, true);
 	}
 	chinactx.fill();
 })();
