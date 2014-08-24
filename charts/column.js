@@ -152,7 +152,8 @@
         },
 
         setTotal : function(num){
-            $('.column .number').html(num);
+            num += '';
+            $('.column .number').html( num.replace(/(?=(?!\b)(?:\d{3})+(?!\d))/g, ',') );
         }
     }
 
