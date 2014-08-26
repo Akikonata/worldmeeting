@@ -8,6 +8,7 @@
 		}
 		return list;
 	})();
+	var contryList = [];
 	var dataList = [];
 	//初始化绘图所需的canvas
 	var worlddots = $("#world-dots")[0];
@@ -47,12 +48,15 @@
 			$onlinecount.text(parseInt(d.total_online_count).toLocaleString());
 			$msgcount.text(d.total_msg_ack_count.toLocaleString());
 			//拆分国内和国外数据
+			contryList = {};
 			for (var key in d) {
 				if (provinceList[key]) {
 					var pKey = provinceList[key];
 					pKey.age_distribute = d[key].age_distribute;
 					pKey.msg_ack = d[key].msg_ack;
 					pKey.online_user = d[key].online_user;
+				} else {
+					contryList[key] = d[key];
 				}
 			}
 			var chinaMap = Utils.chinaMap;
