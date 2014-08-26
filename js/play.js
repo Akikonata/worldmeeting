@@ -77,7 +77,7 @@
 					top: shooterPos.top - 170
 				}, 1000, function() {
 					var pro = shooterPositions[posIdx].name;
-					citytext.text();
+					citytext.text(pro);
 					var currentFive = Utils.currentFive;
 					var donutList = currentFive[4][pro].age_distribute;
 
