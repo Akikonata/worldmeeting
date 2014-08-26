@@ -76,49 +76,43 @@
 					left: shooterPos.left + 345,
 					top: shooterPos.top - 170
 				}, 1000, function() {
-					citytext.text(shooterPositions[posIdx].name);
+					var pro = shooterPositions[posIdx].name;
+					citytext.text();
+					var currentFive = Utils.currentFive;
+					var donutList = currentFive[4][pro].age_distribute;
+
 					var donutData = [{
 						label: "18-21",
-						value: 10,
+						value: donutList[1] * 100,
 						color: "#ffcf00"
 					}, {
 						label: "21-35",
-						value: 10,
+						value: donutList[2] * 100,
 						color: "#1782fb"
 					}, {
 						label: "35以上",
-						value: 34,
+						value: donutList[3] * 100,
 						color: "#f92a69"
 					}];
 
 					Donut.init('donut'); //初始化一次就行
 					Donut.update(donutData); //数据有变化直接update
-
-					setTimeout(function() {
-						donutData = [{
-							label: "18-21",
-							value: 20,
-							color: "#ffcf00"
-						}, {
-							label: "21-35",
-							value: 40,
-							color: "#1782fb"
-						}, {
-							label: "35以上",
-							value: 10,
-							color: "#f92a69"
-						}];
-
-						Donut.update(donutData); //数据有变化直接update            
-					}, 2000);
-
+					var columnList = (function() {
+						var list = [];
+						for (var i = 0; i < currentFive.length; i++) {
+							list.push(currentFive[i].total_msg_ack_count / 10000);
+						}
+						return list;
+					})();
+					console.log(columnList);
 					var columnData = {
 						x: ['18:06:20', '18:06:30', '18:06:40', '18:06:50'],
-						y: [150000, 180000, 200000, 130000]
+						y: columnList
 					};
 					Column.init('column'); //初始化一次就行
 					Column.update(columnData); //数据有变化直接update
-					Column.setTotal(125663558894); //修改总数
+					Column.setTotal(columnList[4]); //修改总数
+
 					floatlayer.delay(1000).animate({
 						width: 1658,
 						height: 722

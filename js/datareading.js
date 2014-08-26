@@ -10,6 +10,7 @@
 	})();
 	var contryList = [];
 	var dataList = [];
+	var currentFive = Utils.currentFive;
 	//初始化绘图所需的canvas
 	var worlddots = $("#world-dots")[0];
 	var chinadots = $("#china-dots")[0];
@@ -50,6 +51,10 @@
 	var renderMap = setInterval(function() {
 		if (dataList.length !== 0) {
 			var d = dataList.shift(0);
+			currentFive.push(d);
+			if (currentFive.length > 5) {
+				currentFive.shift(0);
+			}
 			//更新左下角的数据
 			d.total_online_count.toLocaleString();
 			$onlinecount.text(parseInt(d.total_online_count).toLocaleString());
@@ -100,8 +105,8 @@
 					var grid = parseInt(Math.random() * range);
 					var x = Math.random() * 10;
 					var y = Math.random() * 10;
-					worldctx.moveTo(contry[grid][0] * 10 + x - 1, contry[grid][1] * 10 + y);
-					worldctx.arc(contry[grid][0] * 10 + x, contry[grid][1] * 10 + y, 1, 0, Math.PI * 2, true);
+					worldctx.moveTo(contry[grid][0] * 10 + x - 0.5, contry[grid][1] * 10 + y);
+					worldctx.arc(contry[grid][0] * 10 + x, contry[grid][1] * 10 + y, 0.5, 0, Math.PI * 2, true);
 				}
 			}
 			worldctx.clearRect(0, 0, 1580, 780);

@@ -1,4 +1,6 @@
 var Utils = {};
+//存储最近的五条数据
+Utils.currentFive = [];
 Utils.provinces = {
     "北京": "京",
     "天津": "津",
