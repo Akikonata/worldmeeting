@@ -21,6 +21,10 @@
 			z-index: 0;
 			position: absolute;
 			background: url(images/worldmock.jpg);
+			width: 1580px;
+			height: 780px;
+			background-size: cover;
+			background-position: -10px -35px;
 		}
 		.result{
 			position: absolute;
@@ -42,10 +46,10 @@
 		var img = new Image();
 		img.src = 'images/world.svg';
 		//记录map
-		var Map = new Array(100);
+		var Map = new Array(158);
 		for(var i=0;i<Map.length;i++){
-			Map[i] = new Array(84);
-			for(var j=0;j<84;j++){
+			Map[i] = new Array(78);
+			for(var j=0;j<78;j++){
 				Map[i][j]=0;
 			} 
 		}

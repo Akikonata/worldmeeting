@@ -14,11 +14,15 @@
 	var worlddots = $("#world-dots")[0];
 	var chinadots = $("#china-dots")[0];
 	var chinactx = chinadots.getContext("2d");
+	var worldctx = worlddots.getContext("2d");
 	var $onlinecount = $("#onlinecount");
 	var $msgcount = $("#msgcount");
 	chinactx.fillStyle = '#f69701';
 	chinactx.shadowBlur = 10;
 	chinactx.shadowColor = "#f69701";
+	worldctx.fillStyle = '#f69701';
+	worldctx.shadowBlur = 10;
+	worldctx.shadowColor = "#f69701";
 
 	var getData = function() {
 		var Dt = new Date();
@@ -62,7 +66,9 @@
 					contryList[key] = d[key];
 				}
 			}
-			console.log(contryList);
+			var renderMap = function(mapGrid, width, height, ctx) {
+
+			}
 			var chinaMap = Utils.chinaMap;
 			chinactx.beginPath();
 			for (var key in chinaMap) {
@@ -81,6 +87,25 @@
 			}
 			chinactx.clearRect(0, 0, 1000, 840);
 			chinactx.fill();
+			//世界
+			var worldMap = Utils.worldMap;
+			worldctx.beginPath();
+			for (var key in worldMap) {
+				var contry = worldMap[key];
+				var data = contryList[key];
+				var online_user = data.online_user / 10000;
+				var range = contry.length;
+				//绘制点
+				for (var i = 0; i < online_user; i++) {
+					var grid = parseInt(Math.random() * range);
+					var x = Math.random() * 10;
+					var y = Math.random() * 10;
+					worldctx.moveTo(contry[grid][0] * 10 + x - 1, contry[grid][1] * 10 + y);
+					worldctx.arc(contry[grid][0] * 10 + x, contry[grid][1] * 10 + y, 1, 0, Math.PI * 2, true);
+				}
+			}
+			worldctx.clearRect(0, 0, 1580, 780);
+			worldctx.fill();
 		}
 	}, 1000);
 })();
