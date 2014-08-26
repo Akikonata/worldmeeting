@@ -5,6 +5,8 @@
 	var shooter = $("#shooter");
 	var floatlayer = $("#float-layer");
 	var citytext = $("#city-text");
+	Donut.init('donut'); //初始化一次就行
+	Column.init('column'); //初始化一次就行
 	var shooterPositions = [{
 		name: "北京",
 		left: 730,
@@ -95,7 +97,6 @@
 						color: "#f92a69"
 					}];
 
-					Donut.init('donut'); //初始化一次就行
 					Donut.update(donutData); //数据有变化直接update
 					var columnList = (function() {
 						var list = [];
@@ -108,7 +109,6 @@
 						x: ['18:06:20', '18:06:30', '18:06:40', '18:06:50'],
 						y: columnList
 					};
-					Column.init('column'); //初始化一次就行
 					Column.update(columnData); //数据有变化直接update
 					Column.setTotal(columnList[4]); //修改总数
 
