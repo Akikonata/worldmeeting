@@ -15,7 +15,7 @@
                 },
                 "margin": {
                     "right": 10,
-                    "left": 60
+                    "left": 160
                 },
 
                 "axis": {
