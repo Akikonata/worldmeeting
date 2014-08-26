@@ -38,9 +38,8 @@
 			}
 		});
 	};
-
 	getData();
-	setInterval(function() {
+	var renderMap = setInterval(function() {
 		if (dataList.length !== 0) {
 			var d = dataList.shift(0);
 			//更新左下角的数据
@@ -77,8 +76,6 @@
 			}
 			chinactx.clearRect(0, 0, 1000, 840);
 			chinactx.fill();
-		} else {
-			//getData();
 		}
 	}, 2000);
 })();

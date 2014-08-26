@@ -4595,14 +4595,14 @@ kc.ChartsConfig.add('base', {
 
         ticks: {
             enabled : true,
-            dash : null,
+            dash : [1],
             width: 1,
             color: '#808080'
         },
 
         axis : {
             enabled : true,
-            arrow : true,
+            arrow : false,
             width : 1,
             color : '#000'
         },
@@ -4633,15 +4633,14 @@ kc.ChartsConfig.add('base', {
 
         ticks: {
             enabled : true,
-            dash : null,
-            value: 0,
+            dash : [1],
             width: 1,
             color: '#808080'
         },
 
         axis : {
             enabled : true,
-            arrow : true,
+            arrow : false,
             width : 1,
             color : '#000'
         },
@@ -6351,7 +6350,7 @@ var BaseChart = kc.BaseChart = kity.createClass( 'BaseChart', {
             }).appendTo( tmp );
 
             $('<div class="kitycharts-legend-label">' + label + '</div>').css({
-                fontSize : '10px',
+                fontSize : '12px',
                 display : 'inline-block'
             }).appendTo( tmp );
         });
@@ -8128,11 +8127,34 @@ var CoffeeChart = kc.CoffeeChart = kity.createClass( 'CoffeeChart', {
     }
 } );
 
-var ChinaMapData = kc.MapData = kity.createClass('ChinaMapData', {
+var ChinaMapData = kc.ChinaMapData = kity.createClass('ChinaMapData', {
     base: kc.Data,
 
     format: function() {
         var origin = this.origin;
+
+        var hasVal = function( entry ){
+            return ('value' in entry) && kity.Utils.isNumber( entry.value );
+        }
+
+        var arr = [];
+        for( var i in origin ){
+            hasVal( origin[ i ] ) && arr.push( origin[ i ].value );
+        }
+
+        var max = Math.max.apply( {}, arr ),
+            min = Math.min.apply( {}, arr ),
+            dur = max - min;
+
+        var t,
+            range = 0.999999;
+
+        for( i in origin ){
+            t = origin[ i ];
+            if( hasVal( origin[ i ] ) )
+                t.mapVal = ( t.value - min ) / dur * range;
+        }   
+
         return origin;
     }
 });
@@ -8148,6 +8170,8 @@ var ChinaMapChart = kc.ChinaMapChart = kity.createClass('ChinaMapChart', {
             maxColor: 'red'
         }, param));
 
+        this.setData( new kc.ChinaMapData() );
+
         this.addElement('map', new kc.Map({
             width: this.param.width,
             height: this.param.height
@@ -8157,6 +8181,8 @@ var ChinaMapChart = kc.ChinaMapChart = kity.createClass('ChinaMapChart', {
     updateChart: function(param, data) {
         var has = 'hasOwnProperty';
         var map = this.getElement('map');
+
+        var data = this.data.format();
 
         var colors = param.colors.map(kity.Color.parse),
             tweenColor = function (t) {
@@ -8196,7 +8222,7 @@ var ChinaMapChart = kc.ChinaMapChart = kity.createClass('ChinaMapChart', {
             if (!block) continue;
 
             var pro = data[province];
-            var color = pro.color ? kity.Color.parse(pro.color) : data[province].value ? tweenColor(data[province].value) : defaultColor ;
+            var color = pro.color ? kity.Color.parse(pro.color) : data[province].mapVal ? tweenColor(data[province].mapVal) : defaultColor ;
 
             block.animate({
                 color: color
@@ -8868,27 +8894,28 @@ var Treemap = exports.Treemap = kc.Treemap = kity.createClass( 'Treemap', {
 
                     var at = 'up';
                     var posX = 0, posY = 0;
-                    var gap = fontSize;
+                    var gap = fontSize,
+                        tipHalfWidth = tipSize.width / 2,
+                        tipHalfHeight = tipSize.height / 2;
 
-                    posY = rectCenter.y - tipSize.height / 2 - gap;
+                    posY = rectCenter.y - tipHalfHeight - gap;
 
-                    if( rectCenter.x + tipSize.width / 2 > paperWidth ){
+                    if( rectCenter.x + tipHalfWidth > paperWidth ){
                         at = 'left';
-                        posX = rectCenter.x - tipSize.width / 2 - gap;
+                        posX = rectCenter.x - tipHalfWidth - gap;
                         posY = rectCenter.y;
-                    }else if( rectCenter.x - tipSize.width / 2 < 0 ){
-                        console.log(1);
+                    }else if( rectCenter.x - tipHalfWidth < 0 ){
                         at = 'right';
-                        posX = rectCenter.x + tipSize.width / 2 + gap;
+                        posX = rectCenter.x + tipHalfWidth + gap;
                         posY = rectCenter.y;
                     }else{
                         posX = rectCenter.x;
                     }
 
-                    // if( rectCenter.y - tipSize.height - gap < 0 ){
-                    //     at = 'down';
-                    //     posY = rectCenter.y + tipSize.height / 2 + gap;
-                    // }
+                    if( rectCenter.y - tipHalfHeight - gap < 0 && rectCenter.x + tipHalfWidth <= paperWidth && rectCenter.x - tipHalfWidth >= 0 ){
+                        at = 'down';
+                        posY = rectCenter.y + tipHalfHeight + gap;
+                    }
 
                     self.tip
                         .update({
