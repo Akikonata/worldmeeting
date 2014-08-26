@@ -19,12 +19,15 @@
 	chinactx.fillStyle = '#f69701';
 	chinactx.shadowBlur = 10;
 	chinactx.shadowColor = "#f69701";
-	//获取当前时间
+
 	var getData = function() {
 		var Dt = new Date();
 		var hours = Dt.getHours();
 		var minutes = Dt.getMinutes() - 1;
 		var seconds = Dt.getSeconds();
+		minutes += parseInt((seconds + 1) / 60);
+		hours += parseInt((minutes + 1) / 60);
+		minutes = (minutes + 1) % 60;
 		var secondsList = [];
 		var hS = hours < 10 ? ('0' + hours) : hours;
 		var mS = minutes < 10 ? ('0' + minutes) : minutes;
@@ -37,6 +40,7 @@
 				dataList = dataList.concat(d);
 			}
 		});
+		setTimeout(getData, 60000); //每60秒取一次数据
 	};
 	getData();
 	var renderMap = setInterval(function() {
@@ -58,6 +62,7 @@
 					contryList[key] = d[key];
 				}
 			}
+			console.log(contryList);
 			var chinaMap = Utils.chinaMap;
 			chinactx.beginPath();
 			for (var key in chinaMap) {
@@ -77,5 +82,5 @@
 			chinactx.clearRect(0, 0, 1000, 840);
 			chinactx.fill();
 		}
-	}, 2000);
+	}, 1000);
 })();

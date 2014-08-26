@@ -14,6 +14,14 @@
 		#grid{
 			z-index: 10;
 		}
+		#imageD{
+			z-index: 5;
+		}
+		#mock{
+			z-index: 0;
+			position: absolute;
+			background: url(images/worldmock.jpg);
+		}
 		.result{
 			position: absolute;
 			top: 850px;
@@ -21,8 +29,9 @@
 	</style>
 </head>
 <body>
-	<canvas id='imageD' width="1000" height="840"></canvas>
-	<canvas id='grid' width="1000" height="840"></canvas>
+	<canvas id='imageD' width="1580" height="780"></canvas>
+	<canvas id='grid' width="1580" height="780"></canvas>
+	<div id="mock"></div>
 	<div class="result">
 		<textarea name="" id="result" cols="30" rows="10"></textarea>
 		<button id="generate">Generate</button>
@@ -31,7 +40,7 @@
 <script>
 	(function(){
 		var img = new Image();
-		img.src = 'images/china.svg';
+		img.src = 'images/world.svg';
 		//记录map
 		var Map = new Array(100);
 		for(var i=0;i<Map.length;i++){
@@ -47,8 +56,8 @@
 			var resultText = document.getElementById('result');
 			generate.addEventListener("click",function(){
 				var result = [];
-				for(var i=0;i<100;i++){
-					for(j=0;j<84;j++){
+				for(var i=0;i<158;i++){
+					for(j=0;j<78;j++){
 						if(Map[i][j]){
 							result.push([i,j]);
 						}
@@ -59,13 +68,13 @@
 			grid.strokeStyle="gray";
 			grid.fillStyle="black";
 			var gtx = grid.getContext("2d");
-			for(var i=0;i<=100;i++){
+			for(var i=0;i<=158;i++){
 				gtx.moveTo(i*10,0);
-				gtx.lineTo(i*10,840);
+				gtx.lineTo(i*10,780);
 			}
-			for(var j=0;j<=84;j++){
+			for(var j=0;j<=78;j++){
 				gtx.moveTo(0,j*10);
-				gtx.lineTo(1000,j*10);
+				gtx.lineTo(1580,j*10);
 			}
 			gtx.stroke();
 			grid.addEventListener("click",function(e){
