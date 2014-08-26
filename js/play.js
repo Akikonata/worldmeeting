@@ -104,7 +104,6 @@
 						}
 						return list;
 					})();
-					console.log(columnList);
 					var columnData = {
 						x: ['18:06:20', '18:06:30', '18:06:40', '18:06:50'],
 						y: columnList
