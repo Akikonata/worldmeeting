@@ -142,9 +142,15 @@
     width: 300px;
     height: 300px;
 }
+.chart-container.donut{
+	left: 570px;
+}
+.chart-container.column{
+	right: 120px;
+}
 .chart-container .title{
     color: #FFF;
-    font-size: 16px;
+    font-size: 24px;
     text-align: center;
 }
 #donut{
