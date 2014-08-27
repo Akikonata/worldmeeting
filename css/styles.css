@@ -47,9 +47,9 @@
 }
 #worldmap{
 	z-index: 1;
-	width: 1398px;
-	height: 753px;
-	right: 120px;
+	width: 1580px;
+	height: 780px;
+	right: 20px;
 	top: 210px;
 	/*display: none;*/
 }
@@ -75,8 +75,8 @@
 	z-index: 2;
 	width: 200px;
 	height: 168px;
-	right: 362px;
-	top: 420px;
+	right: 302px;
+	top: 470px;
 /*	width: 1000px;
 	height: 840px;
 	right: 268px;
@@ -87,6 +87,8 @@
 	z-index: 3;
 	width: 100%;
 	height: 100%;
+	left: 0;
+	top: 0;
 }
 #chinamap path{
 	opacity: 0.2;

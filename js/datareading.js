@@ -97,6 +97,7 @@
 			worldctx.beginPath();
 			for (var key in worldMap) {
 				var contry = worldMap[key];
+				console.log(contry);
 				var data = contryList[key];
 				var online_user = data.online_user / 10000;
 				var range = contry.length;

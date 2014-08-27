@@ -46,7 +46,7 @@
 		//渲染数据点
 
 		//中国地图变大
-		chinamap.delay(5000).animate({
+		chinamap.delay(50000).animate({
 			width: 1000,
 			height: 840,
 			right: 268,
@@ -66,8 +66,8 @@
 					chinamap.delay(5000).animate({
 						width: 200,
 						height: 168,
-						right: 362,
-						top: 420
+						right: 302,
+						top: 470
 					}, 2000, function() {
 						reset();
 					});
@@ -125,7 +125,7 @@
 			setTimeout(showCities, 5000);
 		});
 		//世界地图同时fadeOut
-		worldmap.delay(5000).fadeOut(2000);
+		worldmap.delay(50000).fadeOut(2000);
 	};
 	play();
 })();
