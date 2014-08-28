@@ -178,6 +178,7 @@
 #column{
     width: 100%;
     height: 400px; 
+    overflow: hidden;
 }
 #cur-province-image{
 	width: 210px;
