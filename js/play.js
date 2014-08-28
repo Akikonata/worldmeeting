@@ -5,33 +5,39 @@
 	var shooter = $("#shooter");
 	var floatlayer = $("#float-layer");
 	var citytext = $("#city-text");
-	var curProvincePath = $("#cur-province-path");
+	var curProvinceImage = $("#cur-province-image");
 	Donut.init('donut'); //初始化一次就行
 	Column.init('column'); //初始化一次就行
 	var shooterPositions = [{
 		name: "北京",
 		left: 730,
-		top: 300
+		top: 300,
+		background: "url(images/beijing.png)"
 	}, {
 		name: "上海",
 		left: 850,
-		top: 500
+		top: 500,
+		background: "url(images/shanghai.png)"
 	}, {
 		name: "广东",
 		left: 720,
-		top: 680
+		top: 680,
+		background: "url(images/guangdong.png)"
 	}, {
 		name: "重庆",
 		left: 590,
-		top: 540
+		top: 540,
+		background: "url(images/chongqing.png)"
 	}, {
 		name: "台湾",
 		left: 870,
-		top: 660
+		top: 660,
+		background: "url(images/taiwan.png)"
 	}, {
 		name: "福建",
 		left: 800,
-		top: 620
+		top: 620,
+		background: "url(images/fujian.png)"
 	}];
 	var reset = function() {
 		worldmap.find("path").attr("class", "");
@@ -44,10 +50,8 @@
 		//开场动画
 		worldmap.find("path").attr("class", "render");
 		chinamap.find("path").attr("class", "render");
-		//渲染数据点
-
 		//中国地图变大
-		chinamap.delay(50000).animate({
+		chinamap.delay(5000).animate({
 			width: 1000,
 			height: 840,
 			right: 268,
@@ -81,9 +85,10 @@
 				}, 1000, function() {
 					var pro = shooterPositions[posIdx].name;
 					citytext.text(pro);
+					curProvinceImage.css("backgroundImage", shooterPositions[posIdx].background);
+					curProvinceImage.text(Utils.provinces[pro]);
 					var currentFive = Utils.currentFive;
 					var donutList = currentFive[4][pro].age_distribute;
-
 					var donutData = [{
 						label: "18-21",
 						value: donutList[1] * 100,
@@ -126,7 +131,7 @@
 			setTimeout(showCities, 5000);
 		});
 		//世界地图同时fadeOut
-		worldmap.delay(50000).fadeOut(2000);
+		worldmap.delay(5000).fadeOut(2000);
 	};
 	play();
 })();
