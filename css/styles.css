@@ -140,9 +140,9 @@
 }
 .chart-container{
     position: absolute;
-    float: left;
     width: 400px;
     height: 400px;
+    bottom: 188px;
 }
 .chart-container.donut{
 	left: 570px;
@@ -157,7 +157,7 @@
 }
 #donut{
     width: 100%;
-    height: 250px;
+    height: 400px;
     margin-top: 30px;
 }
 .donut-label{
@@ -177,7 +177,7 @@
 }
 #column{
     width: 100%;
-    height: 250px; 
+    height: 400px; 
 }
 #cur-province-image{
 	width: 210px;

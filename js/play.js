@@ -111,8 +111,10 @@
 						}
 						return list;
 					})();
+					columnList.push(0);
+					var time = (new Date()).toTimeString().split(" ")[0];
 					var columnData = {
-						x: ['18:06:20', '18:06:30', '18:06:40', '18:06:50', '18:06:50'],
+						x: ['', '', '', '', time, ''],
 						y: columnList
 					};
 					Column.update(columnData); //数据有变化直接update
