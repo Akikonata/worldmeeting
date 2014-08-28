@@ -5,6 +5,7 @@
 	var shooter = $("#shooter");
 	var floatlayer = $("#float-layer");
 	var citytext = $("#city-text");
+	var curProvincePath = $("#cur-province-path");
 	Donut.init('donut'); //初始化一次就行
 	Column.init('column'); //初始化一次就行
 	var shooterPositions = [{
@@ -111,7 +112,7 @@
 					};
 					Column.update(columnData); //数据有变化直接update
 					Column.setTotal(columnList[4]); //修改总数
-
+					//浮层显示和消失的动画
 					floatlayer.delay(1000).animate({
 						width: 1658,
 						height: 722
