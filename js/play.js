@@ -103,7 +103,6 @@
 						color: "#f92a69"
 					}];
 
-					Donut.update(donutData); //数据有变化直接update
 					var columnList = (function() {
 						var list = [];
 						for (var i = 0; i < currentFive.length; i++) {
@@ -117,13 +116,15 @@
 						x: ['', '', '', '', time, ''],
 						y: columnList
 					};
-					Column.update(columnData); //数据有变化直接update
-					Column.setTotal(columnList[4]); //修改总数
 					//浮层显示和消失的动画
 					floatlayer.delay(1000).animate({
 						width: 1658,
 						height: 722
-					}, 1000).delay(10000).animate({
+					}, 1000, function() {
+						Donut.update(donutData); //数据有变化直接update
+						Column.update(columnData); //数据有变化直接update
+						Column.setTotal(columnList[4]); //修改总数
+					}).delay(10000).animate({
 						width: 0,
 						height: 0
 					}, 1000);
