@@ -71,9 +71,6 @@
 					contryList[key] = d[key];
 				}
 			}
-			var renderMap = function(mapGrid, width, height, ctx) {
-
-			}
 			var chinaMap = Utils.chinaMap;
 			chinactx.beginPath();
 			for (var key in chinaMap) {
