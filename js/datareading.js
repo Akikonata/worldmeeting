@@ -78,7 +78,7 @@
 			for (var key in chinaMap) {
 				var province = chinaMap[key];
 				var data = provinceList[key];
-				var online_user = parseInt(data.online_user / 30000);
+				var online_user = parseInt(data.online_user / 10000);
 				var range = province.length;
 				//绘制点
 				for (var i = 0; i < online_user; i++) {
@@ -107,7 +107,7 @@
 			for (var key in worldMap) {
 				var contry = worldMap[key];
 				var data = contryList[key];
-				var online_user = data.online_user / 30000;
+				var online_user = data.online_user / 10000;
 				var range = contry.length;
 				//绘制点
 				for (var i = 0; i < online_user; i++) {

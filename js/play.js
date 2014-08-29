@@ -106,7 +106,7 @@
 					var columnList = (function() {
 						var list = [];
 						for (var i = 0; i < currentFive.length; i++) {
-							list.push(currentFive[i].total_msg_ack_count);
+							list.push(currentFive[i][pro].msg_ack);
 						}
 						return list;
 					})();
