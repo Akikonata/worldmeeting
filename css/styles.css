@@ -177,8 +177,7 @@
 }
 #column{
     width: 100%;
-<<<<<<< HEAD
-    height: 250px;
+    height: 400px;
     overflow: hidden;
 }
 
@@ -196,10 +195,7 @@
 .num-flip span{
 	display : inline-block;
 };
-=======
-    height: 400px; 
-    overflow: hidden;
-}
+
 #cur-province-image{
 	width: 210px;
 	height:220px;
@@ -213,4 +209,3 @@
 	color: white;
 	font-size: 30px;
 }
->>>>>>> 06ef26f77913a4d37e070176432440b775665352
