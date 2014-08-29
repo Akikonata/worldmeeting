@@ -2,7 +2,7 @@
 
     function setColumnConfig(xArr, yArr, duration) {
         var columnConfig = {
-            "color": ['#1782fb'],
+            "color": ['rgba(0,0,0,0)', '#1782fb'],
 
             "xAxis": {
                 "categories": xArr,
@@ -15,7 +15,7 @@
                 },
                 "margin": {
                     "right": 10,
-                    "left": 160
+                    "left": 100
                 },
 
                 "axis": {
@@ -24,8 +24,8 @@
                     color: '#8591a1'
                 },
                 "padding": {
-                    "left": 20,
-                    "right": 20
+                    "left": 0,
+                    "right": 0
                 },
                 "label": {
                     "enabled": true,
@@ -101,12 +101,13 @@
                 delayInterval: 200
             },
             "series": [{
+                "name": "",
+                "data": [0, 0, 0, 0, 0, 0]
+            }, {
                 "name": "北京即时推送消息数",
                 "data": yArr
             }]
-
         };
-
         return columnConfig;
     }
 

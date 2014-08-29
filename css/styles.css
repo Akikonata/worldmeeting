@@ -140,9 +140,9 @@
 }
 .chart-container{
     position: absolute;
-    float: left;
-    width: 300px;
-    height: 300px;
+    width: 400px;
+    height: 400px;
+    bottom: 188px;
 }
 .chart-container.donut{
 	left: 570px;
@@ -157,7 +157,7 @@
 }
 #donut{
     width: 100%;
-    height: 250px;
+    height: 400px;
     margin-top: 30px;
 }
 .donut-label{
@@ -177,6 +177,7 @@
 }
 #column{
     width: 100%;
+<<<<<<< HEAD
     height: 250px;
     overflow: hidden;
 }
@@ -195,3 +196,21 @@
 .num-flip span{
 	display : inline-block;
 };
+=======
+    height: 400px; 
+    overflow: hidden;
+}
+#cur-province-image{
+	width: 210px;
+	height:220px;
+	left: 220px;
+	top: 280px;
+	position: absolute;
+	background-repeat: no-repeat;
+	background-position: left top;
+	text-align: center;
+	line-height: 210px;
+	color: white;
+	font-size: 30px;
+}
+>>>>>>> 06ef26f77913a4d37e070176432440b775665352
