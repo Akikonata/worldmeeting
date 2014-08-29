@@ -26,6 +26,8 @@
 	worldctx.shadowColor = "#f69701";
 	chinactx.globalCompositeOperation = "lighter";
 	worldctx.globalCompositeOperation = "lighter";
+	var inited = false; //判断地图是否已经初始化过
+
 	var getData = function() {
 		var Dt = new Date();
 		var hours = Dt.getHours();
@@ -49,7 +51,6 @@
 		setTimeout(getData, 60000); //每60秒取一次数据
 	};
 	getData();
-
 	var renderMap = setInterval(function() {
 		if (dataList.length !== 0) {
 			var d = dataList.shift(0);
@@ -74,54 +75,35 @@
 					contryList[key] = d[key];
 				}
 			}
-			//绘制中国部分
-			var chinaMap = Utils.chinaMap;
-			chinactx.clearRect(0, 0, 1000, 840);
-			for (var key in chinaMap) {
-				var province = chinaMap[key];
-				var data = provinceList[key];
-				var online_user = parseInt(data.online_user / 10000);
-				var range = province.length;
-				//绘制点
-				for (var i = 0; i < online_user; i++) {
-					chinactx.beginPath();
-					var grid = parseInt(Math.random() * range);
-					//console.log(online_user);
-					var p = {
-						x: province[grid][0] * 10 + Math.random() * 10,
-						y: province[grid][1] * 10 + Math.random() * 10,
-						size: 1,
-						color: "#f69701"
-					};
-					// var gradient = chinactx.createRadialGradient(p.x, p.y, 0, p.x, p.y, p.size);
-					// gradient.addColorStop(0, "white");
-					// gradient.addColorStop(0.4, "white");
-					// gradient.addColorStop(0.4, p.color);
-					// gradient.addColorStop(1, "black");
-					// chinactx.fillStyle = gradient;
-					chinactx.arc(p.x, p.y, p.size, Math.PI * 2, false);
-					chinactx.fill();
+			//绘制地图上的点
+			var renderPoints = function(Map, List, ctx, width, height, base) {
+				ctx.clearRect(0, 0, width, height);
+				//if (!inited) {
+				for (var key in Map) {
+					var target = Map[key];
+					var data = List[key];
+					var online_user = parseInt(data.online_user / 10000);
+					var range = target.length;
+					for (var i = 0; i < online_user; i++) {
+						ctx.beginPath();
+						var grid = parseInt(Math.random() * range);
+						var p = {
+							x: target[grid][0] * 10 + Math.random() * 10,
+							y: target[grid][1] * 10 + Math.random() * 10,
+							size: base,
+							color: "#f69701"
+						};
+						ctx.arc(p.x, p.y, p.size, Math.PI * 2, false);
+						ctx.fill();
+					}
 				}
-			}
-			//绘制世界部分
-			var worldMap = Utils.worldMap;
-			worldctx.clearRect(0, 0, 1580, 780);
-			for (var key in worldMap) {
-				var contry = worldMap[key];
-				var data = contryList[key];
-				var online_user = data.online_user / 10000;
-				var range = contry.length;
-				//绘制点
-				for (var i = 0; i < online_user; i++) {
-					worldctx.beginPath();
-					var grid = parseInt(Math.random() * range);
-					var x = Math.random() * 10;
-					var y = Math.random() * 10;
-					worldctx.moveTo(contry[grid][0] * 10 + x - 1, contry[grid][1] * 10 + y);
-					worldctx.arc(contry[grid][0] * 10 + x, contry[grid][1] * 10 + y, 1, 0, Math.PI * 2, true);
-					worldctx.fill();
-				}
-			}
+				//inited = true;
+				// } else {
+
+				// }
+			};
+			renderPoints(Utils.chinaMap, provinceList, chinactx, 1000, 840, 2);
+			renderPoints(Utils.worldMap, contryList, worldctx, 1580, 780, 1);
 		}
 	}, 1000);
 })();
