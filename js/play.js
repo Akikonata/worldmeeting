@@ -60,10 +60,10 @@
 			return;
 			//靶位移动
 			shooter.css({
-				opacity : 1,
+				opacity: 1,
 				left: 1000,
 				// top: 137,
-				'-webkit-transform' : 'translate3d(0, 0, 0)' 
+				'-webkit-transform': 'translate3d(0, 0, 0)'
 			});
 			var posIdx = -1;
 			shooter.delay(2000).css('opacity', 1); //2000
