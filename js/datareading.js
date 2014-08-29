@@ -49,6 +49,7 @@
 		setTimeout(getData, 60000); //每60秒取一次数据
 	};
 	getData();
+
 	var renderMap = setInterval(function() {
 		if (dataList.length !== 0) {
 			var d = dataList.shift(0);
@@ -57,9 +58,10 @@
 				currentFive.shift(0);
 			}
 			//更新左下角的数据
-			d.total_online_count.toLocaleString();
-			$onlinecount.text(parseInt(d.total_online_count).toLocaleString());
-			$msgcount.text(d.total_msg_ack_count.toLocaleString());
+			$onlinecount.numberFlip( parseInt(d.total_online_count) );
+			$msgcount.numberFlip( parseInt(d.total_msg_ack_count) );
+			// $onlinecount.html( addSpan(parseInt(d.total_online_count).toLocaleString()) );
+			// $msgcount.html(d.total_msg_ack_count.toLocaleString());
 			//拆分国内和国外数据
 			contryList = {};
 			for (var key in d) {
