@@ -2,7 +2,7 @@
 	var chinamap = $("#chinamap");
 	var worldmap = $("#worldmap");
 	var china = $("#china");
-	var shooter = $("#shooter");
+	var shooter = $("#shooter").css('-webkit-transition', '500ms');
 	var floatlayer = $("#float-layer");
 	var citytext = $("#city-text");
 	var curProvincePath = $("#cur-province-path");
@@ -37,7 +37,7 @@
 		worldmap.find("path").attr("class", "");
 		chinamap.find("path").attr("class", "");
 		worldmap.fadeIn(0);
-		shooter.hide();
+		shooter.css('opacity', 0);
 		play();
 	};
 	var play = function() {
@@ -47,19 +47,22 @@
 		//渲染数据点
 
 		//中国地图变大
-		chinamap.delay(50000).animate({
+		chinamap.delay(1000).animate({ //50000
 			width: 1000,
 			height: 840,
 			right: 268,
 			top: 137
 		}, 2000, function() {
+			return;
 			//靶位移动
 			shooter.css({
+				opacity : 1,
 				left: 1000,
-				top: 137
+				// top: 137,
+				'-webkit-transform' : 'translate3d(0, 0, 0)' 
 			});
 			var posIdx = -1;
-			shooter.delay(2000).show();
+			shooter.delay(200).css('opacity', 1); //2000
 			var showCities = function() {
 				posIdx++;
 				if (posIdx >= shooterPositions.length) {
