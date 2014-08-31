@@ -119,14 +119,19 @@
 					//判断是否产生亮点
 					var last = currentFive[currentFive.length - 2];
 					if (last) {
+						//if (last[key].online_user - online_user > 0) {
+						var grid = parseInt(Math.random() * range);
+						var item = {
+							x: parseInt(target[grid][0] * 10 + Math.random() * 10),
+							y: parseInt(target[grid][1] * 10 + Math.random() * 10),
+							size: last[key].online_user - online_user
+						};
 						if (last[key].online_user - online_user > 0) {
-							var grid = parseInt(Math.random() * range);
-							twinkleList.push({
-								x: parseInt(target[grid][0] * 10 + Math.random() * 10),
-								y: parseInt(target[grid][1] * 10 + Math.random() * 10),
-								size: last[key].online_user - online_user
-							});
+							item.mode = 'add';
+						} else {
+							item.mode = 'dec'
 						}
+						twinkleList.push(item);
 					}
 				}
 			};
@@ -147,9 +152,15 @@
 				}
 				//对闪烁数组进行预处理
 				for (var i = 0; i < twinkleList.length; i++) {
-					twinkleList[i].cursize = 1;
-					twinkleList[i].size = Math.log(twinkleList[i].size) * 5;
-					twinkleList[i].step = (twinkleList[i].size - twinkleList[i].cursize) / 10;
+					var ti = twinkleList[i];
+					ti.size = Math.log(Math.abs(twinkleList[i].size)) * 5;
+					if (ti.mode === 'add') {
+						ti.cursize = 1;
+						ti.step = (ti.size - ti.cursize) / 10;
+					} else {
+						ti.cursize = ti.size;
+						ti.step = -ti.size / 10;
+					}
 				}
 				var twinkleCount = 0;
 				var renderTwinkle = function() {
