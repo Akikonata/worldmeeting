@@ -27,10 +27,10 @@
 	var chinatwinklectx = chinatwinkle.getContext("2d");
 	var $onlinecount = $("#onlinecount");
 	var $msgcount = $("#msgcount");
-	chinactx.fillStyle = '#f69701';
+	chinactx.fillStyle = 'rgba(6,157,243,0.7)';
 	//chinactx.shadowBlur = 10;
 	chinactx.shadowColor = "#f69701";
-	worldctx.fillStyle = '#f69701';
+	worldctx.fillStyle = 'rgba(6,157,243,0.7)';
 	//worldctx.shadowBlur = 10;
 	worldctx.shadowColor = "#f69701";
 	chinactx.globalCompositeOperation = "lighter";
@@ -41,8 +41,8 @@
 	chinatwinklectx.lineWidth = 1;
 	worldtwinklectx.lineWidth = 1;
 	chinatwinklectx.strokeStyle = "#0c45b9";
-	worldtwinklectx.fillStyle = "rgba(23,130,251,0.5)";
-	chinatwinklectx.fillStyle = "rgba(23,130,251,0.5)";
+	worldtwinklectx.fillStyle = "rgba(21,54,113,0.6)";
+	chinatwinklectx.fillStyle = "rgba(21,54,113,0.6)";
 	var getData = function() {
 		var Dt = new Date();
 		var hours = Dt.getHours();
@@ -129,7 +129,6 @@
 						}
 					}
 				}
-				console.log(twinkleList);
 			};
 			countPoints(Utils.chinaMap, provinceList, 1000, 840, chinaDotList, chinaTwinkleList);
 			countPoints(Utils.worldMap, contryList, 1580, 780, worldDotList, worldTwinkleList);
@@ -149,9 +148,7 @@
 				//对闪烁数组进行预处理
 				for (var i = 0; i < twinkleList.length; i++) {
 					twinkleList[i].cursize = 1;
-					twinkleList[i].size = twinkleList[i].size / 50;
-					if (twinkleList[i].size < 10) twinkleList[i].size = 10;
-					if (twinkleList[i].size > 50) twinkleList[i].size = 50;
+					twinkleList[i].size = Math.log(twinkleList[i].size) * 5;
 					twinkleList[i].step = (twinkleList[i].size - twinkleList[i].cursize) / 10;
 				}
 				var twinkleCount = 0;
@@ -160,6 +157,13 @@
 					for (var i = 0; i < twinkleList.length; i++) {
 						twinklectx.beginPath();
 						var p = twinkleList[i];
+						var gradient = ctx.createRadialGradient(p.x, p.y, 0, p.x, p.y, p.size);
+						gradient.addColorStop(0, "white");
+						gradient.addColorStop(0.2, "rgba(21,54,113,1)");
+						//gradient.addColorStop(0.2, "#ffcf00"); 
+						gradient.addColorStop(0.9, "rgba(21,54,113,0.7)");
+						gradient.addColorStop(1, "rgba(21,54,113,1)");
+						twinklectx.fillStyle = gradient;
 						twinklectx.arc(p.x, p.y, p.cursize, Math.PI * 2, false);
 						p.cursize += p.step;
 						twinklectx.fill();
@@ -168,7 +172,9 @@
 					twinkleCount++;
 					if (twinkleCount < 10) setTimeout(renderTwinkle, 50);
 				};
-				if (twinkleList.length > 0) renderTwinkle();
+				if (twinkleList.length > 0) {
+					renderTwinkle();
+				}
 			};
 			drawPoints(chinaDotList, chinaTwinkleList, chinactx, chinatwinklectx, 1000, 840, 2);
 			drawPoints(worldDotList, worldTwinkleList, worldctx, worldtwinklectx, 1580, 780, 1);
