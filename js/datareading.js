@@ -27,10 +27,10 @@
 	var chinatwinklectx = chinatwinkle.getContext("2d");
 	var $onlinecount = $("#onlinecount");
 	var $msgcount = $("#msgcount");
-	chinactx.fillStyle = 'rgba(6,157,243,0.7)';
+	chinactx.fillStyle = 'rgba(62,80,108,0.7)';
 	//chinactx.shadowBlur = 10;
 	chinactx.shadowColor = "#f69701";
-	worldctx.fillStyle = 'rgba(6,157,243,0.7)';
+	worldctx.fillStyle = 'rgba(62,80,108,0.7)';
 	//worldctx.shadowBlur = 10;
 	worldctx.shadowColor = "#f69701";
 	chinactx.globalCompositeOperation = "lighter";
@@ -161,7 +161,7 @@
 						gradient.addColorStop(0, "white");
 						gradient.addColorStop(0.2, "rgba(21,54,113,1)");
 						//gradient.addColorStop(0.2, "#ffcf00"); 
-						gradient.addColorStop(0.9, "rgba(21,54,113,0.7)");
+						gradient.addColorStop(0.5, "rgba(21,54,113,0.5)");
 						gradient.addColorStop(1, "rgba(21,54,113,1)");
 						twinklectx.fillStyle = gradient;
 						twinklectx.arc(p.x, p.y, p.cursize, Math.PI * 2, false);
@@ -170,7 +170,7 @@
 						//twinklectx.stroke();
 					}
 					twinkleCount++;
-					if (twinkleCount < 10) setTimeout(renderTwinkle, 50);
+					if (twinkleCount < 10) setTimeout(renderTwinkle, 90);
 				};
 				if (twinkleList.length > 0) {
 					renderTwinkle();
