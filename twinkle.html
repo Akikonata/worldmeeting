@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<style>
+		#twinkle{
+			width: 800px;
+			height: 600px;
+			background: black;
+		}
+	</style>
+</head>
+<body>
+	<canvas id="twinkle" width="800" height="600"></canvas>
+</body>
+<script>
+	(function(){
+		var canvas = document.getElementById('twinkle');
+		var ctx = canvas.getContext('2d');
+		var size = fadecount = 5;
+		var count = 34;
+		var BW = 800;
+		var BH = 600;
+		var points = [];
+		var fade = true;
+		for(var i=0;i<count;i++){
+			points.push({
+				x:Math.random()*BW,
+				y:Math.random()*BH,
+				size:size
+			});
+		}
+		var render = function(){
+			ctx.globalCompositeOperation = "source-over"; 
+			ctx.fillStyle = "rgba(0, 0, 0, 0.3)"; 
+			ctx.fillRect(0, 0, BW, BH); 
+			for(var i=0;i<count;i++){
+				var p = points[i];
+				ctx.beginPath(); 
+				ctx.globalCompositeOperation = "lighter"; 
+				var gradient = ctx.createRadialGradient(p.x, p.y, 0, p.x, p.y, p.size); 
+				gradient.addColorStop(0, "white"); 
+				gradient.addColorStop(0.5, "#ffcf00"); 
+				//gradient.addColorStop(0.2, "#ffcf00"); 
+				gradient.addColorStop(0.8, "rgba(255,207,0,0.3)"); 
+				gradient.addColorStop(1, "black"); 
+				ctx.fillStyle = gradient; 
+				ctx.arc(p.x, p.y, p.size, Math.PI*2, false); 
+				ctx.fill(); 
+				//ctx.fillRect(p.x,p.y,p.size,p.size);
+				if(fade){
+					p.size--;
+				}else{
+					p.size++;
+				}
+			}
+			if(fade){
+				fadecount--;
+				if(fadecount===0){
+					fade = false;
+				}
+			} else {
+				fadecount++;
+				if(fadecount===size){
+					fade = true;
+				}
+			}
+			setTimeout(render,100);
+		}
+		render();
+	})();
+</script>
+</html>
