@@ -18,6 +18,9 @@
 	var chinatwinkle = $("#china-twinkle")[0];
 	var worldDotList = {};
 	var chinaDotList = {};
+	//记录闪烁效果
+	var worldTwinkleList = [];
+	var chinaTwinkleList = [];
 	var chinactx = chinadots.getContext("2d");
 	var worldctx = worlddots.getContext("2d");
 	var worldtwinklectx = worldtwinkle.getContext("2d");
@@ -32,7 +35,14 @@
 	worldctx.shadowColor = "#f69701";
 	chinactx.globalCompositeOperation = "lighter";
 	worldctx.globalCompositeOperation = "lighter";
-
+	worldtwinklectx.globalCompositeOperation = "lighter";
+	chinatwinklectx.globalCompositeOperation = "lighter";
+	worldtwinklectx.strokeStyle = "#0c45b9";
+	chinatwinklectx.lineWidth = 1;
+	worldtwinklectx.lineWidth = 1;
+	chinatwinklectx.strokeStyle = "#0c45b9";
+	worldtwinklectx.fillStyle = "rgba(23,130,251,0.5)";
+	chinatwinklectx.fillStyle = "rgba(23,130,251,0.5)";
 	var getData = function() {
 		var Dt = new Date();
 		var hours = Dt.getHours();
@@ -57,6 +67,8 @@
 	};
 	getData();
 	var renderMap = setInterval(function() {
+		worldTwinkleList = [];
+		chinaTwinkleList = [];
 		if (dataList.length !== 0) {
 			var d = dataList.shift(0);
 			currentFive.push(d);
@@ -81,7 +93,7 @@
 				}
 			}
 			//绘制地图上的点
-			var countPoints = function(Map, List, width, height, pointList) {
+			var countPoints = function(Map, List, width, height, pointList, twinkleList) {
 				var add = {};
 				for (var key in Map) {
 					var target = Map[key];
@@ -104,24 +116,62 @@
 						for (var j = 0; j < add[key]; j++)
 							pointList[key].shift(0);
 					}
+					//判断是否产生亮点
+					var last = currentFive[currentFive.length - 2];
+					if (last) {
+						if (last[key].online_user - online_user > 0) {
+							var grid = parseInt(Math.random() * range);
+							twinkleList.push({
+								x: parseInt(target[grid][0] * 10 + Math.random() * 10),
+								y: parseInt(target[grid][1] * 10 + Math.random() * 10),
+								size: last[key].online_user - online_user
+							});
+						}
+					}
 				}
+				console.log(twinkleList);
 			};
-			countPoints(Utils.chinaMap, provinceList, 1000, 840, chinaDotList);
-			countPoints(Utils.worldMap, contryList, 1580, 780, worldDotList);
-			var drawPoints = function(pointList, ctx, width, height, base) {
+			countPoints(Utils.chinaMap, provinceList, 1000, 840, chinaDotList, chinaTwinkleList);
+			countPoints(Utils.worldMap, contryList, 1580, 780, worldDotList, worldTwinkleList);
+			var drawPoints = function(pointList, twinkleList, ctx, twinklectx, width, height, base) {
+				//绘制普通点
 				ctx.clearRect(0, 0, width, height);
 				for (var key in pointList) {
 					var list = pointList[key];
 					for (var i = 0; i < list.length; i++) {
 						ctx.beginPath();
 						var p = list[i];
-						ctx.arc(p.x, p.y, base, Math.PI * 2, false);
+						//ctx.arc(p.x, p.y, base, Math.PI * 2, false);
+						ctx.fillRect(p.x, p.y, base, base);
 						ctx.fill();
 					}
 				}
+				//对闪烁数组进行预处理
+				for (var i = 0; i < twinkleList.length; i++) {
+					twinkleList[i].cursize = 1;
+					twinkleList[i].size = twinkleList[i].size / 50;
+					if (twinkleList[i].size < 10) twinkleList[i].size = 10;
+					if (twinkleList[i].size > 50) twinkleList[i].size = 50;
+					twinkleList[i].step = (twinkleList[i].size - twinkleList[i].cursize) / 10;
+				}
+				var twinkleCount = 0;
+				var renderTwinkle = function() {
+					twinklectx.clearRect(0, 0, width, height);
+					for (var i = 0; i < twinkleList.length; i++) {
+						twinklectx.beginPath();
+						var p = twinkleList[i];
+						twinklectx.arc(p.x, p.y, p.cursize, Math.PI * 2, false);
+						p.cursize += p.step;
+						twinklectx.fill();
+						//twinklectx.stroke();
+					}
+					twinkleCount++;
+					if (twinkleCount < 10) setTimeout(renderTwinkle, 50);
+				};
+				if (twinkleList.length > 0) renderTwinkle();
 			};
-			drawPoints(chinaDotList, chinactx, 1000, 840, 2);
-			drawPoints(worldDotList, worldctx, 1580, 780, 1);
+			drawPoints(chinaDotList, chinaTwinkleList, chinactx, chinatwinklectx, 1000, 840, 2);
+			drawPoints(worldDotList, worldTwinkleList, worldctx, worldtwinklectx, 1580, 780, 1);
 		}
 	}, 1000);
 })();
