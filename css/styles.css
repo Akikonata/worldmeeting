@@ -82,13 +82,16 @@
 	right: 268px;
 	top: 137px;*/
 }
-#china-dots,#world-dots{
+#china-twinkle,#world-twinkle,#china-dots,#world-dots{
 	position: absolute;
 	z-index: 3;
 	width: 100%;
 	height: 100%;
 	left: 0;
 	top: 0;
+}
+#china-twinkle,#world-twinkle{
+	z-index: 4;
 }
 #chinamap path{
 	opacity: 0.2;

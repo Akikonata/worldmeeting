@@ -14,8 +14,14 @@
 	//初始化绘图所需的canvas
 	var worlddots = $("#world-dots")[0];
 	var chinadots = $("#china-dots")[0];
+	var worldtwinkle = $("#world-twinkle")[0];
+	var chinatwinkle = $("#china-twinkle")[0];
+	var worldDotList = {};
+	var chinaDotList = {};
 	var chinactx = chinadots.getContext("2d");
 	var worldctx = worlddots.getContext("2d");
+	var worldtwinklectx = worldtwinkle.getContext("2d");
+	var chinatwinklectx = chinatwinkle.getContext("2d");
 	var $onlinecount = $("#onlinecount");
 	var $msgcount = $("#msgcount");
 	chinactx.fillStyle = '#f69701';
@@ -26,7 +32,6 @@
 	worldctx.shadowColor = "#f69701";
 	chinactx.globalCompositeOperation = "lighter";
 	worldctx.globalCompositeOperation = "lighter";
-	var inited = false; //判断地图是否已经初始化过
 
 	var getData = function() {
 		var Dt = new Date();
@@ -76,34 +81,47 @@
 				}
 			}
 			//绘制地图上的点
-			var renderPoints = function(Map, List, ctx, width, height, base) {
-				ctx.clearRect(0, 0, width, height);
-				//if (!inited) {
+			var countPoints = function(Map, List, width, height, pointList) {
+				var add = {};
 				for (var key in Map) {
 					var target = Map[key];
-					var data = List[key];
-					var online_user = parseInt(data.online_user / 10000);
 					var range = target.length;
-					for (var i = 0; i < online_user; i++) {
+					var data = List[key];
+					var online_user = data.online_user;
+					//计算各省在线用户增量
+					if (!pointList[key]) pointList[key] = [];
+					add[key] = parseInt(online_user / 10000) - pointList[key].length;
+					//增量为正数则新增点，反之则减少点
+					if (add[key] >= 0) {
+						for (var i = 0; i < add[key]; i++) {
+							var grid = parseInt(Math.random() * range);
+							pointList[key].push({
+								x: parseInt(target[grid][0] * 10 + Math.random() * 10),
+								y: parseInt(target[grid][1] * 10 + Math.random() * 10)
+							});
+						}
+					} else {
+						for (var j = 0; j < add[key]; j++)
+							pointList[key].shift(0);
+					}
+				}
+			};
+			countPoints(Utils.chinaMap, provinceList, 1000, 840, chinaDotList);
+			countPoints(Utils.worldMap, contryList, 1580, 780, worldDotList);
+			var drawPoints = function(pointList, ctx, width, height, base) {
+				ctx.clearRect(0, 0, width, height);
+				for (var key in pointList) {
+					var list = pointList[key];
+					for (var i = 0; i < list.length; i++) {
 						ctx.beginPath();
-						var grid = parseInt(Math.random() * range);
-						var p = {
-							x: target[grid][0] * 10 + Math.random() * 10,
-							y: target[grid][1] * 10 + Math.random() * 10,
-							size: base,
-							color: "#f69701"
-						};
-						ctx.arc(p.x, p.y, p.size, Math.PI * 2, false);
+						var p = list[i];
+						ctx.arc(p.x, p.y, base, Math.PI * 2, false);
 						ctx.fill();
 					}
 				}
-				//inited = true;
-				// } else {
-
-				// }
 			};
-			renderPoints(Utils.chinaMap, provinceList, chinactx, 1000, 840, 2);
-			renderPoints(Utils.worldMap, contryList, worldctx, 1580, 780, 1);
+			drawPoints(chinaDotList, chinactx, 1000, 840, 2);
+			drawPoints(worldDotList, worldctx, 1580, 780, 1);
 		}
 	}, 1000);
 })();
