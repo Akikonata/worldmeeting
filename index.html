@@ -10,15 +10,16 @@
 		<div class='logo-number'>
 			<img src="images/baidu_logo.png" alt="百度" id="logo">	
 			<img src="images/bear1.png" alt="熊" id="bear1">
-			<h1 class="title">百度产品实时用户数据</h1>
+			<h1 class="title">百度云推送实时用户数</h1>
 			<p class='count' id="onlinecount">100,000,000</p>
-			<h1 class="title">百度产品消息推送数</h1>
+			<h1 class="title">百度云推送消息数</h1>
 			<p class='count' id="msgcount">100,000,000</p>
 		</div>
 		<div class="shushuo-logo">
 			<img src="images/shushuo_logo.png" alt="">
 		</div>
 		<div class='map-container' id="worldmap">
+		<canvas id="world-twinkle" width="1580" height="780"></canvas>
 		<canvas id="world-dots" width="1580" height="780"></canvas>
 		<svg version="1.1" id="world" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
 	 viewBox="0 0 1580 780" width="100%">
@@ -1419,6 +1420,7 @@
 		</div>
 	<!--chinamap-->
 	<div class="map-container" id="chinamap">
+		<canvas id="china-twinkle" width="1000" height="840"></canvas>
 		<canvas id="china-dots" width="1000" height="840"></canvas>
 		<svg version="1.1" id="china" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
 	 viewBox="0 0 1000 840" width="100%">
