@@ -69,8 +69,8 @@
 
         </div>
     </body>
-    <script src="donut.js"></script>
-    <script src="column.js"></script>
+    <script src="../js/libs/donut.js"></script>
+    <script src="../js/libs/column.js"></script>
     <script>
         var donutData = [{
             label : "18-21",
@@ -109,8 +109,8 @@
 
 
         var columnData = {
-            x : ['18:06:20', '18:06:30', '18:06:40', '18:06:50'],
-            y : [150000, 180000, 200000, 130000]
+            x : ['18:06:20', '18:06:30', '18:06:40', '18:06:50', 'xx', 'yy'],
+            y : [150000, 180000, 200000, 130000, 140000, 210000]
         };
         Column.init('column');//初始化一次就行
         Column.update(columnData);//数据有变化直接update

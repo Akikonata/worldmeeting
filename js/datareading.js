@@ -153,7 +153,7 @@
 				for (var i = 0; i < twinkleList.length; i++) {
 					var ti = twinkleList[i];
 					ti.size = Math.abs(twinkleList[i].size) / 20;
-					if (ti.size < 5) ti.size = 5;
+					if (ti.size < 20) ti.size = 20;
 					if (ti.size > 50) ti.size = 50;
 					if (ti.mode === 'add') {
 						ti.cursize = 1;
@@ -174,7 +174,7 @@
 						gradient.addColorStop(0.2, "rgba(21,54,113,1)");
 						//gradient.addColorStop(0.2, "#ffcf00"); 
 						gradient.addColorStop(0.5, "rgba(21,54,113,0.5)");
-						gradient.addColorStop(1, "rgba(21,54,113,1)");
+						gradient.addColorStop(1, "rgba(21,54,113,0.8)");
 						twinklectx.fillStyle = gradient;
 						twinklectx.arc(p.x, p.y, p.cursize, Math.PI * 2, false);
 						p.cursize += p.step;
