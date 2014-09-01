@@ -60,8 +60,8 @@
 		worldmap.find("path").attr("class", "render");
 		chinamap.find("path").attr("class", "render");
 		//中国地图变大
-		chinaTwinkle.delay(50000).fadeOut(100);
-		chinamap.delay(50000).animate({
+		chinaTwinkle.delay(5000).fadeOut(100);
+		chinamap.delay(5000).animate({
 			width: 1000,
 			height: 840,
 			right: 268,
@@ -162,7 +162,7 @@
 			setTimeout(showCities, 5000);
 		});
 		//世界地图同时fadeOut
-		worldmap.delay(50000).fadeOut(2000);
+		worldmap.delay(5000).fadeOut(2000);
 	};
 	play();
 })();

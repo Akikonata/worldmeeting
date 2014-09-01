@@ -142,11 +142,8 @@
 				for (var key in pointList) {
 					var list = pointList[key];
 					for (var i = 0; i < list.length; i++) {
-						ctx.beginPath();
 						var p = list[i];
-						//ctx.arc(p.x, p.y, base, Math.PI * 2, false);
-						ctx.fillRect(p.x, p.y, base, base);
-						ctx.fill();
+						ctx.fillRect(p.x, p.y, base, base)
 					}
 				}
 				//对闪烁数组进行预处理
@@ -183,7 +180,6 @@
 					}
 					twinkleCount++;
 					if (twinkleCount < 10) setTimeout(renderTwinkle, 50 + twinkleCount);
-
 				};
 				if (twinkleList.length > 0) {
 					renderTwinkle();
