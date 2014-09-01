@@ -3,14 +3,15 @@
 		dh = document.body.clientHeight;
 
 	var chinamap = $("#chinamap");
+	var chinaTwinkle = $("#china-twinkle");
 	var worldmap = $("#worldmap");
 	var china = $("#china");
 	var shooter = $("#shooter").css({
-		left: dw/2 + 'px',
-		top: dh/2 + 'px',
-		'tranistion' : '500ms',
-		'transform' : 'scale(5)',
-		'opacity' : 0
+		left: dw / 2 + 'px',
+		top: dh / 2 + 'px',
+		'tranistion': '500ms',
+		'transform': 'scale(5)',
+		'opacity': 0
 	});
 	var floatlayer = $("#float-layer");
 	var citytext = $("#city-text");
@@ -59,21 +60,23 @@
 		worldmap.find("path").attr("class", "render");
 		chinamap.find("path").attr("class", "render");
 		//中国地图变大
-		chinamap.delay(5000).animate({
+		chinaTwinkle.delay(50000).fadeOut(100);
+		chinamap.delay(50000).animate({
 			width: 1000,
 			height: 840,
 			right: 268,
 			top: 137
 		}, 2000, function() {
+			chinaTwinkle.fadeIn(200);
 			//靶位移动
 			shooter.animate({
 				left: 1000,
 				top: 137
-			}, 500, function(){
+			}, 500, function() {
 				shooter.css({
-					opacity : 1,
-					transform : 'scale(1)',
-					tranistion : '500ms'
+					opacity: 1,
+					transform: 'scale(1)',
+					tranistion: '500ms'
 				})
 			});
 			var posIdx = -1;
@@ -84,20 +87,20 @@
 					//中国地图变小
 					shooter.animate({
 						'opacity': 1
-					}, 50, function(){
+					}, 50, function() {
 						shooter.css({
-							left: dw/2 + 'px',
-							top: dh/2 + 'px',
+							left: dw / 2 + 'px',
+							top: dh / 2 + 'px',
 							// 'tranistion' : '2000ms',
-							'transform' : 'scale(5)',
-							opacity : 0
+							'transform': 'scale(5)',
+							opacity: 0
 						});
 						chinamap.delay(5000).animate({
 							width: 200,
 							height: 168,
 							right: 302,
 							top: 470
-						}, 2000, function(){
+						}, 2000, function() {
 							reset();
 						});
 					});
@@ -160,12 +163,12 @@
 						height: 0
 					}, 1000);
 				});
-				setTimeout(showCities, 15000);//*****
+				setTimeout(showCities, 15000); //*****
 			};
 			setTimeout(showCities, 5000);
 		});
 		//世界地图同时fadeOut
-		worldmap.delay(5000).fadeOut(2000);
+		worldmap.delay(50000).fadeOut(2000);
 	};
 	play();
 })();

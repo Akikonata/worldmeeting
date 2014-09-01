@@ -27,11 +27,11 @@
 	var chinatwinklectx = chinatwinkle.getContext("2d");
 	var $onlinecount = $("#onlinecount");
 	var $msgcount = $("#msgcount");
-	chinactx.fillStyle = 'rgba(62,80,108,0.7)';
-	//chinactx.shadowBlur = 10;
+	chinactx.fillStyle = 'rgba(62,80,108,1)';
+	// chinactx.shadowBlur = 2;
 	chinactx.shadowColor = "#f69701";
-	worldctx.fillStyle = 'rgba(62,80,108,0.7)';
-	//worldctx.shadowBlur = 10;
+	worldctx.fillStyle = 'rgba(62,80,108,1)';
+	// worldctx.shadowBlur = 2;
 	worldctx.shadowColor = "#f69701";
 	chinactx.globalCompositeOperation = "lighter";
 	worldctx.globalCompositeOperation = "lighter";
@@ -76,8 +76,8 @@
 				currentFive.shift(0);
 			}
 			//更新左下角的数据
-			$onlinecount.numberFlip( parseInt(d.total_online_count) );
-			$msgcount.numberFlip( parseInt(d.total_msg_ack_count) );
+			$onlinecount.numberFlip(parseInt(d.total_online_count));
+			$msgcount.numberFlip(parseInt(d.total_msg_ack_count));
 
 			//拆分国内和国外数据
 			contryList = {};
@@ -101,7 +101,7 @@
 					var online_user = data.online_user;
 					//计算各省在线用户增量
 					if (!pointList[key]) pointList[key] = [];
-					add[key] = parseInt(online_user / 10000) - pointList[key].length;
+					add[key] = parseInt(online_user / 5000) - pointList[key].length;
 					//增量为正数则新增点，反之则减少点
 					if (add[key] >= 0) {
 						for (var i = 0; i < add[key]; i++) {
@@ -152,13 +152,15 @@
 				//对闪烁数组进行预处理
 				for (var i = 0; i < twinkleList.length; i++) {
 					var ti = twinkleList[i];
-					ti.size = Math.log(Math.abs(twinkleList[i].size)) * 5;
+					ti.size = Math.abs(twinkleList[i].size) / 20;
+					if (ti.size < 5) ti.size = 5;
+					if (ti.size > 50) ti.size = 50;
 					if (ti.mode === 'add') {
 						ti.cursize = 1;
 						ti.step = (ti.size - ti.cursize) / 10;
 					} else {
 						ti.cursize = ti.size;
-						ti.step = -ti.size / 10;
+						ti.step = -(ti.size - 1) / 10;
 					}
 				}
 				var twinkleCount = 0;
@@ -180,7 +182,8 @@
 						//twinklectx.stroke();
 					}
 					twinkleCount++;
-					if (twinkleCount < 10) setTimeout(renderTwinkle, 90);
+					if (twinkleCount < 10) setTimeout(renderTwinkle, 50 + twinkleCount);
+
 				};
 				if (twinkleList.length > 0) {
 					renderTwinkle();
