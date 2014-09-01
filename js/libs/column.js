@@ -45,7 +45,6 @@
                     dash: [2],
                     width: 1
                 },
-                // grid : [-0.3, 0, 0.3, 0.6, 0.9],
                 "label": {
                     "enabled": true,
                     "rotate": 0,
@@ -125,9 +124,9 @@
             this.chart.update(this.conf);
 
             var self = this;
-            setTimeout(function() {
+            setTimeout(function(){
                 self.colorMax();
-            }, 1000);
+            }, 1005);
 
         },
 

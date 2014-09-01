@@ -68,14 +68,10 @@
 			//靶位移动
 			shooter.animate({
 				left: 1000,
-				top: 137
-			}, 500, function(){
-				shooter.css({
-					opacity : 1,
-					transform : 'scale(1)',
-					tranistion : '500ms'
-				})
-			});
+				top: 137,
+				scale : 1
+			}, 1000);
+			
 			var posIdx = -1;
 			shooter.delay(2000).css('opacity', 1); //2000
 			var showCities = function() {
