@@ -52,9 +52,6 @@
                     "font": {
                         "color": "#FFF",
                         fontSize: 12
-                    },
-                    format: function(num) {
-                        return num;
                     }
                 },
                 unit: {

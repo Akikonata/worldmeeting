@@ -122,7 +122,7 @@
                         length = 80,
                         duration = 600;
 
-                    var label = $('<div class="donut-label" style="color:' + entry.color + '">' + entry.label + '</div>').appendTo(self.container);
+                    var label = $('<div class="donut-label" style="color:' + entry.color + '">' + entry.label + ' <span style="font-size:30px">' + parseInt(angle/360*100) + '%</span></div>').appendTo(self.container);
                     label.css({
                         color: entry.color,
                         left: x + 'px',

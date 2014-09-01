@@ -53,8 +53,8 @@
                         "color": "#FFF",
                         fontSize: 12
                     },
-                    format: function(num) {
-                        return num;
+                    format : function(num){
+                        return parseInt(num);
                     }
                 },
                 unit: {

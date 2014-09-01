@@ -60,8 +60,6 @@
 			//更新左下角的数据
 			$onlinecount.numberFlip( parseInt(d.total_online_count) );
 			$msgcount.numberFlip( parseInt(d.total_msg_ack_count) );
-			// $onlinecount.html( addSpan(parseInt(d.total_online_count).toLocaleString()) );
-			// $msgcount.html(d.total_msg_ack_count.toLocaleString());
 			//拆分国内和国外数据
 			contryList = {};
 			for (var key in d) {

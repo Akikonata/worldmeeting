@@ -50,25 +50,37 @@ if($)
 		}else{
 			// TODO: 数字位数变化处理
 
-			// var newNumbers = num.toLocaleString();
+			var newNumbers = num.toLocaleString();
 			numbers = $(this).find('span.num-flip');
 
 			var w = numbers.width(),
 				h = numbers.height();
 
-			// if( numbers.length > newNumbers.length ){
-			// 	var diff = numbers.length - newNumbers.length;
-			// 	var k = diff;
-			// 	while(k--){
-			// 		$(numbers[k]).remove();
-			// 	}
+			var diff = numbers.length - newNumbers.length;
+			var k = Math.abs(diff);
 
-			// 	$(numbers[diff]).css({
-			// 		'margin-left' : ( w*diff ) + 'px'
-			// 	});
-			// }
+			if( numbers.length > newNumbers.length ){
+				while(k--){
+					$(numbers[k]).remove();
+				}
+			}else if( numbers.length < newNumbers.length ){
+				var cl;
+				while(k--){
+					var d = (newNumbers.length - (k-1 + numbers.length));
+					if( d%4 == 0){
+						cl = $('<span class="num-flip" style="width: '+w+'px; height: '+h+'px;">,</span>')
+					}else{
+						var tmp = $('.num-flip');
+						cl = $(tmp.get(tmp.length-1)).clone();
+						cl.attr('data-num', 0).find('numbers').css({
+							'-webkit-transform': 'translate3d(0px, 0px, 0px)'
+						});
+					}
 
-			
+					$(this).prepend(cl);
+				}
+			}
+
 		}
 
 		var arr = num.toLocaleString().split('');

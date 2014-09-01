@@ -1,22 +1,50 @@
+/*
+ * world -> china in -> shooter -> province -> shooter -> province ... -> china out -> world
+ * 
+ * 
+ * 
+ */
+
 (function() {
-	var dw = document.body.clientWidth,
-		dh = document.body.clientHeight;
+
+	/* timing config */
+	var Time = {
+		worldStay : 5000,
+		worldOut : 2000,
+		chinaWaitIn : 5000,//5000
+		chinaStay : 5000,
+		chinaIn : 1000,//1000
+		chinaOut : 2000,//2000
+		shooterWaitIn : 2000,
+		shooterIn : 500,
+		shooterMove : 1000,
+		shooterOut : 500,
+		layerWaitIn : 1000,
+		layerIn : 1000,
+		layerStay : 3000,
+		layerOut : 1000,
+		firstProvinceWaitIn : 5000,
+		provinceStay : 2000
+	};
+
+	/* timing config */
 
 	var chinamap = $("#chinamap");
 	var worldmap = $("#worldmap");
 	var china = $("#china");
+	var dw = document.body.clientWidth,
+		dh = document.body.clientHeight;
+
 	var shooter = $("#shooter").css({
-		left: dw/2 + 'px',
-		top: dh/2 + 'px',
-		'tranistion' : '500ms',
-		'transform' : 'scale(5)',
+		'-webkit-transform' : 'translate3d('+(dw/2)+'px, '+(dh/2)+'px, 0) scale(5)',
 		'opacity' : 0
 	});
+
 	var floatlayer = $("#float-layer");
 	var citytext = $("#city-text");
 	var curProvinceImage = $("#cur-province-image");
-	Donut.init('donut'); //初始化一次就行
-	Column.init('column'); //初始化一次就行
+	Donut.init('donut');
+	Column.init('column');
 	var shooterPositions = [{
 		name: "北京",
 		left: 730,
@@ -54,61 +82,59 @@
 		worldmap.fadeIn(0);
 		play();
 	};
-	var play = function() {
+	var play = function(){
 		//开场动画
 		worldmap.find("path").attr("class", "render");
 		chinamap.find("path").attr("class", "render");
 		//中国地图变大
-		chinamap.delay(5000).animate({
+		chinamap.delay(Time.chinaWaitIn).animate({//5000
 			width: 1000,
 			height: 840,
 			right: 268,
 			top: 137
-		}, 2000, function() {
+		}, Time.chinaIn, function() {//1000
+
 			//靶位移动
-			shooter.animate({
-				left: 1000,
-				top: 137
-			}, 500, function(){
-				shooter.css({
-					opacity : 1,
-					transform : 'scale(1)',
-					tranistion : '500ms'
-				})
-			});
 			var posIdx = -1;
-			shooter.delay(2000).css('opacity', 1); //2000
-			var showCities = function() {
+
+			shooter.cssAnim({//2000
+				'-webkit-transition' : Time.shooterOut + 'ms',
+				'-webkit-transform' : 'translate3d(1000px, 137px, 0) scale(1)',
+				'opacity': 1
+			}, {
+				wait : Time.shooterWaitIn,
+				callback : function(){
+
+				}
+			});
+
+			var showCities = function(){
 				posIdx++;
 				if (posIdx >= shooterPositions.length) {
 					//中国地图变小
-					shooter.animate({
-						'opacity': 1
-					}, 50, function(){
-						shooter.css({
-							left: dw/2 + 'px',
-							top: dh/2 + 'px',
-							// 'tranistion' : '2000ms',
-							'transform' : 'scale(5)',
-							opacity : 0
-						});
-						chinamap.delay(5000).animate({
-							width: 200,
-							height: 168,
-							right: 302,
-							top: 470
-						}, 2000, function(){
-							reset();
-						});
+					shooter.cssAnim({
+						'-webkit-transition' : Time.shooterIn + 'ms',
+						'-webkit-transform' : 'translate3d('+(dw/2)+'px, '+(dh/2)+'px, 0) scale(5)',
+						'opacity' : 0
+					}, {
+						callback : function(){
+							chinamap.delay(Time.chinaStay).animate({//5000
+								width: 200,
+								height: 168,
+								right: 302,
+								top: 470
+							}, Time.chinaOut, function() {//2000
+								reset();
+							});
+						}
 					});
 
 					return false;
 				}
 				var shooterPos = shooterPositions[posIdx];
-				shooter.animate({
-					left: shooterPos.left + 345,
-					top: shooterPos.top - 170
-				}, 1000, function() {
+
+				var showlayer = function(){
+					if (posIdx >= shooterPositions.length) return;
 
 					var pro = shooterPositions[posIdx].name;
 					citytext.text(pro);
@@ -143,29 +169,36 @@
 						x: ['', '', '', '', time, ''],
 						y: columnList
 					};
+
 					//浮层显示和消失的动画
-					floatlayer.delay(1000).animate({
-						// left : 131,
-						// right : 131,
-						// top : 179,
-						// bottom : 179
+					floatlayer.delay(Time.layerWaitIn).animate({
 						width: 1658,
 						height: 722
-					}, 1000, function() {
+					}, Time.layerIn, function() {
 						Donut.update(donutData); //数据有变化直接update
 						Column.update(columnData); //数据有变化直接update
 						Column.setTotal(columnList[4]); //修改总数
-					}).delay(10000).animate({
+					}).delay(Time.layerStay).animate({
 						width: 0,
 						height: 0
-					}, 1000);
+					}, Time.layerOut);
+				}
+
+				shooter.cssAnim({
+					'-webkit-transition' : Time.shooterMove + 'ms',
+					'-webkit-transform' : 'translate3d(' + (shooterPos.left + 345) + 'px, ' + (shooterPos.top - 170) + 'px, 0)',
+				}, {
+					// callback : showlayer
 				});
-				setTimeout(showCities, 15000);//*****
+
+
+				setTimeout(showCities, Time.provinceStay);//15000
 			};
-			setTimeout(showCities, 5000);
+			setTimeout(showCities, Time.firstProvinceWaitIn);//5000
 		});
+
 		//世界地图同时fadeOut
-		worldmap.delay(5000).fadeOut(2000);
+		worldmap.delay(Time.worldStay).fadeOut(Time.worldOut);
 	};
 	play();
 })();
