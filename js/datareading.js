@@ -164,9 +164,9 @@
 					if (r < 0.3) {
 						return 0;
 					} else if (r < 0.6) {
-						return 3;
+						return 2;
 					} else {
-						return 5;
+						return 4;
 					}
 				};
 				for (var i = 0; i < twinkleList.length; i++) {
@@ -176,10 +176,10 @@
 					if (ti.size > 50) ti.size = 50;
 					if (ti.mode === 'add') {
 						ti.cursize = 1;
-						ti.step = (ti.size - ti.cursize) / 10;
+						ti.step = (ti.size - ti.cursize) / 5;
 					} else {
 						ti.cursize = ti.size;
-						ti.step = -(ti.size - 1) / 10;
+						ti.step = -(ti.size - 1) / 5;
 					}
 					ti.delay = getDelay();
 					ti.curStep = 0;
@@ -207,7 +207,7 @@
 						//twinklectx.stroke();
 					}
 					twinkleCount++;
-					if (twinkleCount < 10) setTimeout(renderTwinkle, 50 + twinkleCount);
+					if (twinkleCount < 5) setTimeout(renderTwinkle, 30 + twinkleCount);
 				};
 				if (twinkleList.length > 0) {
 					renderTwinkle();
