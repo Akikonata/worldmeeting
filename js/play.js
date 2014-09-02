@@ -60,8 +60,8 @@
 		worldmap.find("path").attr("class", "render");
 		chinamap.find("path").attr("class", "render");
 		//中国地图变大
-		chinaTwinkle.delay(5000).fadeOut(100);
-		chinamap.delay(5000).animate({
+		chinaTwinkle.delay(10000).fadeOut(100);
+		chinamap.delay(10000).animate({
 			width: 1000,
 			height: 840,
 			right: 268,
@@ -127,17 +127,19 @@
 						color: "#f92a69"
 					}];
 
+					var time = new Date();
+					var hoursData = Utils.hoursData;
+					var hour = time.getHours();
 					var columnList = (function() {
 						var list = [];
-						for (var i = 0; i < currentFive.length; i++) {
-							list.push(currentFive[i][pro].msg_ack);
+						for (var i = hour - 4; i <= hour; i++) {
+							list.push(hoursData[i][pro].msg_ack);
 						}
 						return list;
 					})();
 					columnList.push(0);
-					var time = (new Date()).toTimeString().split(" ")[0];
 					var columnData = {
-						x: ['', '', '', '', time, ''],
+						x: ['', '', '', '', hour + '时', ''],
 						y: columnList
 					};
 					//浮层显示和消失的动画
@@ -157,12 +159,12 @@
 						height: 0
 					}, 1000);
 				});
-				setTimeout(showCities, 15000); //*****
+				setTimeout(showCities, 30000); //*****
 			};
 			setTimeout(showCities, 5000);
 		});
 		//世界地图同时fadeOut
-		worldmap.delay(5000).fadeOut(2000);
+		worldmap.delay(10000).fadeOut(2000);
 	};
 	play();
 })();

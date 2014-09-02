@@ -60,13 +60,24 @@
 			dataType: 'json',
 			async: false,
 			success: function(d) {
-				console.log(d);
 				dataList = dataList.concat(d);
 			}
 		});
 		setTimeout(getData, 60000); //每60秒取一次数据
 	};
 	getData();
+	var gethoursData = function() {
+		//获取小时数据
+		$.ajax({
+			url: "data/hours.json",
+			dataType: 'json',
+			async: false,
+			success: function(d) {
+				Utils.hoursData = d;
+			}
+		});
+	};
+	gethoursData();
 	var renderMap = setInterval(function() {
 		worldTwinkleList = [];
 		chinaTwinkleList = [];
@@ -99,7 +110,6 @@
 					var target = Map[key];
 					var range = target.length;
 					var data = List[key];
-					if (!data) console.log(key);
 					var online_user = data.online_user;
 					//计算各省在线用户增量
 					if (!pointList[key]) pointList[key] = [];
