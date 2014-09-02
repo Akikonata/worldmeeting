@@ -99,6 +99,7 @@
 					var target = Map[key];
 					var range = target.length;
 					var data = List[key];
+					if (!data) console.log(key);
 					var online_user = data.online_user;
 					//计算各省在线用户增量
 					if (!pointList[key]) pointList[key] = [];
