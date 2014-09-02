@@ -60,8 +60,8 @@
 		worldmap.find("path").attr("class", "render");
 		chinamap.find("path").attr("class", "render");
 		//中国地图变大
-		chinaTwinkle.delay(5000).fadeOut(100);
-		chinamap.delay(5000).animate({
+		chinaTwinkle.delay(10000).fadeOut(100);
+		chinamap.delay(10000).animate({
 			width: 1000,
 			height: 840,
 			right: 268,
@@ -71,7 +71,7 @@
 			//靶位移动
 			shooter.animate({
 				left: 1000,
-				top: 137,
+				top: 130,
 				scale: 1
 			}, 1000);
 			var posIdx = -1;
@@ -105,7 +105,8 @@
 				var shooterPos = shooterPositions[posIdx];
 				shooter.animate({
 					left: shooterPos.left + 345,
-					top: shooterPos.top - 170
+					top: shooterPos.top - 170,
+					opacity: 1
 				}, 1000, function() {
 					var pro = shooterPositions[posIdx].name;
 					citytext.text(pro);
@@ -127,20 +128,23 @@
 						color: "#f92a69"
 					}];
 
+					var time = new Date();
+					var hoursData = Utils.hoursData;
+					var hour = time.getHours();
 					var columnList = (function() {
 						var list = [];
-						for (var i = 0; i < currentFive.length; i++) {
-							list.push(currentFive[i][pro].msg_ack);
+						for (var i = hour - 4; i <= hour; i++) {
+							list.push(hoursData[i][pro].msg_ack);
 						}
 						return list;
 					})();
 					columnList.push(0);
-					var time = (new Date()).toTimeString().split(" ")[0];
 					var columnData = {
-						x: ['', '', '', '', time, ''],
+						x: ['', '', '', '', hour + '时', ''],
 						y: columnList
 					};
 					//浮层显示和消失的动画
+					$("#china-twinkle").fadeOut(1000);
 					floatlayer.delay(1000).animate({
 						// left : 131,
 						// right : 131,
@@ -152,17 +156,22 @@
 						Donut.update(donutData); //数据有变化直接update
 						Column.update(columnData); //数据有变化直接update
 						Column.setTotal(columnList[4]); //修改总数
+						shooter.css({
+							opacity: 0
+						});
 					}).delay(10000).animate({
 						width: 0,
 						height: 0
-					}, 1000);
+					}, 1000, function() {
+						$("#china-twinkle").fadeIn(100);
+					});
 				});
-				setTimeout(showCities, 15000); //*****
+				setTimeout(showCities, 30000); //*****
 			};
-			setTimeout(showCities, 5000);
+			showCities();
 		});
 		//世界地图同时fadeOut
-		worldmap.delay(5000).fadeOut(2000);
+		worldmap.delay(10000).fadeOut(2000);
 	};
 	play();
 })();

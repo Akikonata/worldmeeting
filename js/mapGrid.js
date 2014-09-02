@@ -1,6 +1,7 @@
 var Utils = {};
 //存储最近的五条数据
 Utils.currentFive = [];
+Utils.hoursData = [];
 Utils.provinces = {
     "北京": "京",
     "天津": "津",
@@ -6954,9 +6955,6 @@ Utils.worldMap = {
     ],
     "冈比亚": [
         [66, 44]
-    ],
-    "几内亚比绍": [
-        [67, 44]
     ],
     "几内亚": [
         [67, 45],
