@@ -159,6 +159,16 @@
 					}
 				}
 				//对闪烁数组进行预处理
+				var getDelay = function() {
+					var r = Math.random();
+					if (r < 0.3) {
+						return 0;
+					} else if (r < 0.6) {
+						return 3;
+					} else {
+						return 5;
+					}
+				};
 				for (var i = 0; i < twinkleList.length; i++) {
 					var ti = twinkleList[i];
 					ti.size = Math.abs(twinkleList[i].size) / 20;
@@ -171,6 +181,8 @@
 						ti.cursize = ti.size;
 						ti.step = -(ti.size - 1) / 10;
 					}
+					ti.delay = getDelay();
+					ti.curStep = 0;
 				}
 				var twinkleCount = 0;
 				var renderTwinkle = function() {
@@ -186,7 +198,11 @@
 						gradient.addColorStop(1, "rgba(21,54,113,0.8)");
 						twinklectx.fillStyle = gradient;
 						twinklectx.arc(p.x, p.y, p.cursize, Math.PI * 2, false);
-						p.cursize += p.step;
+						if (p.curStep >= p.delay) {
+							p.cursize += p.step;
+						} else {
+							p.curStep++;
+						}
 						twinklectx.fill();
 						//twinklectx.stroke();
 					}
