@@ -60,6 +60,7 @@
 			dataType: 'json',
 			async: false,
 			success: function(d) {
+				console.log(d);
 				dataList = dataList.concat(d);
 			}
 		});
